@@ -1,1500 +1,753 @@
 <!doctype html>
-<html lang="en" data-theme="auto">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>My Portfolio</title>
-  <meta name="description" content="Personal portfolio website with live editing.">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#6366f1">
+  <meta name="description" content="Personal portfolio website." />
   <style>
-    :root {
-      --primary: #6366f1; /* indigo-500 */
-      --accent: #22d3ee;  /* cyan-400 */
-      --bg: #0b1220;
-      --bg-muted: #0f172a;
-      --surface: #0f172a;
-      --surface-2: #111827;
-      --text: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border: #1f2937;
-      --ring: color-mix(in oklab, var(--primary), transparent 65%);
+    :root{
+      --bg: #0f1220;
+      --panel: #161a2e;
+      --muted: #8891aa;
+      --text: #e6e9f2;
+      --primary: #6c5ce7;
+      --primary-600: #5a4bd1;
+      --accent: #20c997;
+      --chip: #1e2342;
+      --chip-border: #2a315a;
+      --card: #12162a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 14px;
-      --shadow-1: 0 10px 30px rgba(0,0,0,.35);
-      --shadow-2: 0 3px 10px rgba(0,0,0,.25);
-      --font-scale: 1;
+      --radius-sm: 10px;
+      --radius-xs: 8px;
+      --maxw: 1100px;
     }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f8fafc;
-        --bg-muted: #f1f5f9;
-        --surface: #ffffff;
-        --surface-2: #f8fafc;
-        --text: #0f172a;
-        --text-muted: #475569;
-        --border: #e5e7eb;
-        --shadow-1: 0 10px 30px rgba(0,0,0,.08);
-        --shadow-2: 0 2px 8px rgba(0,0,0,.06);
-      }
+    html,body{margin:0;padding:0;color:var(--text);background:linear-gradient(180deg,#0d1120 0%, #0c0f1b 100%);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{color:var(--primary-600)}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(10,12,22,.5);border-bottom:1px solid rgba(255,255,255,.06);z-index:40}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:36px;height:36px;border-radius:50%;background:radial-gradient(120% 120% at 30% 30%, var(--primary) 0%, #3c38a1 45%, #1a1846 100%);box-shadow:inset 0 0 20px rgba(255,255,255,.08), var(--shadow)}
+    .brand h1{font-size:18px;margin:0}
+    nav a{margin-left:18px;color:var(--text);opacity:.9}
+    nav a:hover{opacity:1}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:56px 0}
+    .hero-card{background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:26px 26px 26px 26px;box-shadow:var(--shadow)}
+    .hero h2{font-size:40px;letter-spacing:.2px;margin:6px 0 8px}
+    .muted{color:var(--muted)}
+    .hero-cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#151a30;color:var(--text)}
+    .btn.primary{background:var(--primary);color:#fff;border-color:transparent}
+    .btn.primary:hover{background:var(--primary-600)}
+    .btn:hover{transform:translateY(-1px)}
+    .avatar-wrap{position:relative}
+    .avatar{aspect-ratio:1/1;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:#0d1120;object-fit:cover;box-shadow:var(--shadow)}
+    .ring{position:absolute;inset:auto auto 14px 14px;background:rgba(32,201,151,.14);border:1px solid rgba(32,201,151,.3);padding:10px 12px;border-radius:12px;font-size:13px}
+    section{padding:30px 0}
+    .section-title{font-size:22px;margin:4px 0 14px}
+    .about{display:grid;grid-template-columns:1fr;gap:10px}
+    .panel{background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .chips{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:var(--chip);border:1px solid var(--chip-border);border-radius:999px;font-size:14px}
+    .chip .remove{display:none}
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+    .card .thumb{height:160px;background:#0c1020;display:block;object-fit:cover}
+    .card-body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{font-size:12px;padding:5px 8px;border-radius:999px;background:#151a30;border:1px solid rgba(255,255,255,.08);color:#cbd3ee}
+    .links{display:flex;gap:10px;margin-top:auto}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .contact{display:grid;grid-template-columns:1fr .9fr;gap:16px;align-items:start}
+    .contact .panel{height:100%}
+    footer{padding:30px 0 60px;color:var(--muted);border-top:1px solid rgba(255,255,255,.06);margin-top:24px}
+    .socials{display:flex;gap:12px;margin-top:10px}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12)}
+    /* Edit mode */
+    .edit-toggle{position:fixed;right:20px;bottom:20px;z-index:60;background:var(--primary);color:#fff;border:none;border-radius:999px;padding:12px 16px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);cursor:pointer}
+    .editbar{position:fixed;left:0;right:0;top:0;z-index:80;display:none;align-items:center;gap:10px;justify-content:space-between;background:rgba(9,12,22,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1);padding:8px 12px}
+    .editbar .grp{display:flex;gap:8px;align-items:center}
+    .editbar .btn{background:#0f1326}
+    .editbar input[type="color"]{width:36px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#0f1326;padding:2px}
+    [data-edit="text"]{transition:box-shadow .2s,border-color .2s}
+    body.editing [data-edit]{outline:1px dashed rgba(255,255,255,.25);outline-offset:2px;border-radius:8px}
+    body.editing [data-edit="text"]:focus{outline:2px solid var(--accent);background:rgba(32,201,151,.08)}
+    body.editing a[data-edit], body.editing img[data-edit]{position:relative;cursor:pointer}
+    .hint{display:none;position:absolute;right:6px;top:6px;font-size:11px;background:rgba(0,0,0,.55);padding:3px 6px;border-radius:6px;border:1px solid rgba(255,255,255,.14);pointer-events:none}
+    body.editing [data-edit] .hint, body.editing a[data-edit]::after{display:block}
+    body.editing .chip .remove{display:inline-flex;color:#fff;background:#d9534f;border:none;border-radius:6px;padding:0 6px;height:20px;align-items:center;cursor:pointer}
+    .add-chip{display:none}
+    body.editing .add-chip{display:inline-flex}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    .hidden{display:none}
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr;gap:14px}
+      .projects{grid-template-columns:1fr 1fr}
+      .contact{grid-template-columns:1fr}
     }
-    [data-theme="light"] {
-      --bg: #f8fafc;
-      --bg-muted: #f1f5f9;
-      --surface: #ffffff;
-      --surface-2: #f8fafc;
-      --text: #0f172a;
-      --text-muted: #475569;
-      --border: #e5e7eb;
-      --shadow-1: 0 10px 30px rgba(0,0,0,.08);
-      --shadow-2: 0 2px 8px rgba(0,0,0,.06);
-    }
-    [data-theme="dark"] {
-      --bg: #0b1220;
-      --bg-muted: #0f172a;
-      --surface: #0f172a;
-      --surface-2: #111827;
-      --text: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border: #1f2937;
-      --shadow-1: 0 10px 30px rgba(0,0,0,.35);
-      --shadow-2: 0 3px 10px rgba(0,0,0,.25);
-    }
-
-    html, body {
-      height: 100%;
-    }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-      background: radial-gradient(1200px 800px at 80% -10%, color-mix(in oklab, var(--primary), transparent 90%), transparent 70%),
-                  radial-gradient(800px 600px at -10% 0%, color-mix(in oklab, var(--accent), transparent 90%), transparent 70%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      font-size: calc(16px * var(--font-scale));
-      transition: background .2s ease, color .2s ease;
-    }
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    img { max-width: 100%; display: block; }
-
-    .container {
-      width: min(1100px, 92vw);
-      margin: 0 auto;
-      padding: 32px 0 80px;
-    }
-
-    header.nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(10px);
-      background: color-mix(in oklab, var(--surface), transparent 25%);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      width: min(1100px, 92vw);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 0;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      letter-spacing: .2px;
-    }
-    .brand .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--primary);
-      box-shadow: 0 0 0 6px color-mix(in oklab, var(--primary), transparent 75%);
-    }
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn, button, input[type="file"]::file-selector-button {
-      appearance: none;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform .06s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
-      box-shadow: var(--shadow-2);
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn.primary {
-      background: linear-gradient(180deg, color-mix(in oklab, var(--primary), white 8%), var(--primary));
-      color: white;
-      border-color: color-mix(in oklab, var(--primary), black 6%);
-      box-shadow: 0 6px 18px color-mix(in oklab, var(--primary), transparent 70%);
-    }
-    .btn.ghost {
-      background: var(--surface-2);
-    }
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: .9em;
-      color: var(--text-muted);
-    }
-    .grid {
-      display: grid;
-      gap: 18px;
-      grid-template-columns: repeat(12, 1fr);
-    }
-    .col-12 { grid-column: span 12; }
-    .col-8 { grid-column: span 8; }
-    .col-6 { grid-column: span 6; }
-    .col-4 { grid-column: span 4; }
-    .card {
-      background: color-mix(in oklab, var(--surface), transparent 0%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-1);
-      overflow: clip;
-    }
-    .card .p {
-      padding: 18px;
-    }
-    .hero {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 140px 1fr auto;
-      gap: 18px;
-      margin-top: 16px;
-    }
-    .avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-1);
-      background: linear-gradient(135deg, color-mix(in oklab, var(--primary), transparent 80%), transparent 80%), var(--bg-muted);
-      display: grid;
-      place-items: center;
-      color: var(--text-muted);
-      font-weight: 700;
-      font-size: 36px;
-    }
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(24px, 4vw, 40px);
-      line-height: 1.2;
-      letter-spacing: .3px;
-    }
-    .subtitle {
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
-    .hero-cta {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    section {
-      margin-top: 26px;
-    }
-    section h2 {
-      margin: 0 0 12px 0;
-      font-size: 1.3rem;
-      letter-spacing: .3px;
-    }
-    .prose p {
-      margin: 0 0 10px 0;
-    }
-    .skills-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-    }
-    .skill {
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-    }
-    .meter {
-      height: 8px;
-      border-radius: 999px;
-      background: color-mix(in oklab, var(--text-muted), transparent 80%);
-      overflow: hidden;
-      margin-top: 8px;
-    }
-    .meter > span {
-      display: block;
-      height: 100%;
-      width: 0%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width .3s ease;
-    }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .project-card {
-      display: grid;
-      grid-template-rows: 160px auto;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: clip;
-      background: var(--surface);
-      box-shadow: var(--shadow-1);
-    }
-    .project-media {
-      background: linear-gradient(180deg, color-mix(in oklab, var(--primary), transparent 85%), transparent 10%), var(--bg-muted);
-      display: grid;
-      place-items: center;
-      color: var(--text-muted);
-      font-weight: 700;
-      letter-spacing: .5px;
-      user-select: none;
-    }
-    .project-body {
-      padding: 14px;
-      display: grid;
-      gap: 8px;
-    }
-    .tags {
-      display: flex; flex-wrap: wrap; gap: 6px;
-    }
-    .timeline {
-      display: grid;
-      gap: 16px;
-    }
-    .experience-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: var(--shadow-2);
-    }
-    .exp-head {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .muted { color: var(--text-muted); }
-    .footer {
-      margin-top: 36px;
-      text-align: center;
-      color: var(--text-muted);
-    }
-
-    /* Editor panel */
-    .editor-overlay {
-      position: fixed;
-      inset: 0;
-      background: color-mix(in oklab, black, transparent 60%);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease;
-      z-index: 80;
-    }
-    .editor {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: min(680px, 100%);
-      height: 100%;
-      background: var(--surface);
-      border-left: 1px solid var(--border);
-      transform: translateX(102%);
-      transition: transform .25s ease;
-      z-index: 90;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      box-shadow: -20px 0 50px rgba(0,0,0,.2);
-    }
-    .editor.open { transform: translateX(0%); }
-    .editor.open ~ .editor-overlay { opacity: 1; pointer-events: auto; }
-    .editor header {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: color-mix(in oklab, var(--surface), transparent 0%);
-    }
-    .editor main {
-      overflow: auto;
-      padding: 14px 16px 90px;
-      display: grid;
-      gap: 16px;
-      background:
-        linear-gradient(180deg, color-mix(in oklab, var(--accent), transparent 98%), transparent 60%),
-        var(--surface);
-    }
-    .panel {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      background: var(--surface-2);
-    }
-    .panel summary {
-      padding: 14px 16px;
-      font-weight: 700;
-      cursor: pointer;
-      list-style: none;
-      outline: none;
-      user-select: none;
-    }
-    .panel[open] summary {
-      border-bottom: 1px solid var(--border);
-      background: color-mix(in oklab, var(--surface), transparent 6%);
-    }
-    .panel .panel-body {
-      padding: 14px 16px;
-      display: grid;
-      gap: 12px;
-    }
-    .grid-2 {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .field {
-      display: grid;
-      gap: 6px;
-    }
-    .field label {
-      font-size: .92em;
-      color: var(--text-muted);
-    }
-    .field input[type="text"],
-    .field input[type="email"],
-    .field input[type="url"],
-    .field input[type="tel"],
-    .field input[type="color"],
-    .field input[type="number"],
-    .field textarea,
-    .field select {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      outline: 2px solid transparent;
-      transition: outline-color .15s ease, border-color .15s ease;
-    }
-    .field textarea { min-height: 120px; resize: vertical; }
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
-      outline-color: var(--ring);
-      border-color: var(--primary);
-    }
-    .row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .list {
-      display: grid;
-      gap: 10px;
-    }
-    .list-item {
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      background: color-mix(in oklab, var(--surface), transparent 6%);
-    }
-    .list-item .row.controls {
-      justify-content: flex-end;
-    }
-    .fab {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 70;
-      display: grid;
-      gap: 8px;
-    }
-    .kbd {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-size: .8em;
-      color: var(--text-muted);
-    }
-    .divider { height: 1px; background: var(--border); margin: 6px 0; }
-    .helper {
-      font-size: .9em;
-      color: var(--text-muted);
-    }
-
-    /* Responsive */
-    @media (max-width: 800px) {
-      .hero { grid-template-columns: 100px 1fr; grid-template-rows: auto auto; }
-      .avatar { width: 100px; height: 100px; border-radius: 18px; }
-      .hero-cta { grid-column: 1 / -1; justify-content: flex-start; }
-      .col-8, .col-6, .col-4 { grid-column: span 12; }
-      .grid-2 { grid-template-columns: 1fr; }
-    }
-
-    /* Print for resume */
-    @media print {
-      .nav-actions, .fab, .editor, .editor-overlay { display: none !important; }
-      body { background: white; color: #111; box-shadow: none; }
-      .card, .experience-item { box-shadow: none; }
+    @media (max-width: 640px){
+      .projects{grid-template-columns:1fr}
+      nav{display:none}
+      .hero h2{font-size:32px}
     }
   </style>
 </head>
 <body>
-  <header class="nav" role="navigation" aria-label="Top navigation">
-    <div class="nav-inner">
+  <div class="editbar" id="editbar" aria-hidden="true">
+    <div class="container" style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <div class="grp">
+        <strong>Edit mode</strong>
+        <label class="pill" style="display:flex;align-items:center;gap:8px;padding:6px 10px">
+          <span>Theme</span>
+          <input type="color" id="themeColor" title="Theme primary color" />
+        </label>
+      </div>
+      <div class="grp">
+        <button class="btn" id="saveBtn">Save</button>
+        <button class="btn" id="exportBtn">Export JSON</button>
+        <label class="btn" for="importInput" style="cursor:pointer">Import JSON</label>
+        <input id="importInput" class="sr" type="file" accept="application/json" />
+        <button class="btn" id="resetBtn" title="Reset to template defaults">Reset</button>
+        <button class="btn primary" id="exitEditBtn">Exit edit</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="edit-toggle" id="editToggle" aria-pressed="false" title="Toggle edit mode">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" fill="#fff"/></svg>
+    Edit
+  </button>
+
+  <header>
+    <div class="container nav">
       <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span id="brand-name">My Portfolio</span>
+        <div class="logo" aria-hidden="true"></div>
+        <h1 id="site-title" data-edit="text" data-key="hero.name">Your Name</h1>
       </div>
-      <div class="nav-actions">
-        <button id="quick-theme" class="btn ghost" title="Toggle light/dark theme">Toggle theme</button>
-        <a id="download-resume" class="btn" href="#" target="_blank" rel="noopener">Print / Save PDF</a>
-        <button id="open-editor" class="btn primary">Edit site</button>
-      </div>
+      <nav aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
   </header>
 
-  <div class="container" id="app" aria-live="polite">
-    <!-- Hero -->
-    <div class="card">
-      <div class="p">
-        <div class="hero">
-          <div class="avatar" id="hero-avatar" aria-label="Profile image"></div>
+  <main>
+    <div class="container hero">
+      <div class="hero-card">
+        <div class="muted" id="hero-tagline" data-edit="text" data-key="hero.tagline">Hi, I’m</div>
+        <h2 id="hero-name" data-edit="text" data-key="hero.name">Your Name</h2>
+        <div class="muted" id="hero-role" data-edit="text" data-key="hero.role">Full-Stack Developer</div>
+        <p id="hero-bio" data-edit="text" data-key="hero.bio">
+          I build fast, accessible, and delightful web experiences with a focus on clean design and robust engineering.
+        </p>
+        <div class="hero-cta">
+          <a id="resume-link" class="btn primary" href="#" target="_blank" rel="noopener" data-edit="href" data-key="hero.resumeHref">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zM12 2l-5.5 9h11L12 2z"/></svg>
+            Download Resume
+            <span class="hint">Edit link</span>
+          </a>
+          <a id="contact-btn" class="btn" href="#" data-edit="email" data-key="contact.email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12a2 2 0 0 0 2 2h16c1.1 0 2-.9 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Email Me
+            <span class="hint">Edit email</span>
+          </a>
+        </div>
+      </div>
+      <div class="avatar-wrap">
+        <img id="avatar" class="avatar" alt="Profile photo" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%236c5ce7'/><stop offset='100%' stop-color='%23333883'/></linearGradient></defs><rect width='100%25' height='100%25' fill='%2310142a'/><circle cx='300' cy='260' r='120' fill='url(%23g)' opacity='.8'/><rect x='220' y='360' rx='40' ry='40' width='160' height='180' fill='%23333f8a' opacity='.7'/></svg>" data-edit="src" data-key="hero.avatarSrc"/>
+        <div class="ring">Available for work</div>
+      </div>
+    </div>
+
+    <section id="about" class="container">
+      <h3 class="section-title">About</h3>
+      <div class="about panel">
+        <p id="about-text" data-edit="text" data-key="about.text">
+          I’m a software engineer with a passion for crafting intuitive interfaces and resilient backends. I care about performance, accessibility, and great developer experience.
+        </p>
+        <div class="grid-2">
           <div>
-            <h1 id="hero-name">Your Name</h1>
-            <div class="subtitle" id="hero-title">Job Title • Location</div>
-            <div class="row" id="hero-socials" style="margin-top: 10px;"></div>
+            <strong>Location</strong>
+            <div id="about-location" class="muted" data-edit="text" data-key="contact.location">Your City, Country</div>
           </div>
-          <div class="hero-cta">
-            <a id="cta-contact" href="#" class="btn primary">Contact me</a>
-            <a id="cta-resume" href="#" class="btn ghost">Download résumé</a>
+          <div>
+            <strong>Social</strong>
+            <div class="socials">
+              <a id="gh-link" class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="socials.github">GitHub</a>
+              <a id="ln-link" class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="socials.linkedin">LinkedIn</a>
+              <a id="tw-link" class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="socials.twitter">Twitter</a>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- About and Skills -->
-    <div class="grid">
-      <section class="col-8">
-        <div class="card">
-          <div class="p">
-            <h2>About</h2>
-            <div id="about" class="prose"></div>
-          </div>
-        </div>
-      </section>
-      <section class="col-4">
-        <div class="card">
-          <div class="p">
-            <h2>Skills</h2>
-            <div id="skills" class="skills-list"></div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Projects -->
-    <section>
-      <div class="card">
-        <div class="p">
-          <div class="row" style="justify-content: space-between; align-items:center;">
-            <h2>Projects</h2>
-            <span class="helper">Tip: You can edit or add projects via Edit site → Projects</span>
-          </div>
-          <div id="projects" class="projects" aria-live="polite"></div>
         </div>
       </div>
     </section>
 
-    <!-- Experience and Education -->
-    <div class="grid">
-      <section class="col-8">
-        <div class="card">
-          <div class="p">
-            <h2>Experience</h2>
-            <div id="experience" class="timeline"></div>
-          </div>
+    <section id="skills" class="container">
+      <h3 class="section-title">Skills</h3>
+      <div class="panel">
+        <div class="chips" id="skills-list">
+          <!-- skills chips generated -->
         </div>
-      </section>
-      <section class="col-4">
-        <div class="card">
-          <div class="p">
-            <h2>Education</h2>
-            <div id="education" class="timeline"></div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Contact -->
-    <section>
-      <div class="card">
-        <div class="p">
-          <h2>Contact</h2>
-          <div id="contact" class="row" style="gap:10px; flex-wrap:wrap;"></div>
-        </div>
+        <button class="btn add-chip" id="add-skill">+ Add skill</button>
       </div>
     </section>
 
-    <div class="footer">
-      <div id="footer-text">© <span id="year"></span> <span id="footer-name">Your Name</span>. All rights reserved.</div>
-    </div>
-  </div>
+    <section id="projects" class="container">
+      <h3 class="section-title">Projects</h3>
+      <div class="projects">
+        <article class="card" data-entity="project" data-project-index="0">
+          <img class="thumb" alt="Project cover" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" data-edit="src" data-key="projects.0.image"/>
+          <div class="card-body">
+            <h4 data-edit="text" data-key="projects.0.title">Project One</h4>
+            <p class="muted" data-edit="text" data-key="projects.0.description">A short description of what this project does and why it’s useful.</p>
+            <div class="tags" id="tags-0">
+              <span class="tag" data-edit="text" data-key="projects.0.tags.0">React</span>
+              <span class="tag" data-edit="text" data-key="projects.0.tags.1">Node.js</span>
+              <span class="tag" data-edit="text" data-key="projects.0.tags.2">PostgreSQL</span>
+            </div>
+            <div class="links">
+              <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="projects.0.demo">Live</a>
+              <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="projects.0.repo">Code</a>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-entity="project" data-project-index="1">
+          <img class="thumb" alt="Project cover" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&auto=format&fit=crop" data-edit="src" data-key="projects.1.image"/>
+          <div class="card-body">
+            <h4 data-edit="text" data-key="projects.1.title">Project Two</h4>
+            <p class="muted" data-edit="text" data-key="projects.1.description">What problem it solves, the stack, and the key features.</p>
+            <div class="tags" id="tags-1">
+              <span class="tag" data-edit="text" data-key="projects.1.tags.0">TypeScript</span>
+              <span class="tag" data-edit="text" data-key="projects.1.tags.1">Express</span>
+              <span class="tag" data-edit="text" data-key="projects.1.tags.2">Redis</span>
+            </div>
+            <div class="links">
+              <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="projects.1.demo">Live</a>
+              <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="projects.1.repo">Code</a>
+            </div>
+          </div>
+        </article>
+        <article class="card" data-entity="project" data-project-index="2">
+          <img class="thumb" alt="Project cover" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" data-edit="src" data-key="projects.2.image"/>
+          <div class="card-body">
+            <h4 data-edit="text" data-key="projects.2.title">Project Three</h4>
+            <p class="muted" data-edit="text" data-key="projects.2.description">Briefly highlight outcomes, metrics, or unique aspects.</p>
+            <div class="tags" id="tags-2">
+              <span class="tag" data-edit="text" data-key="projects.2.tags.0">Next.js</span>
+              <span class="tag" data-edit="text" data-key="projects.2.tags.1">Tailwind</span>
+              <span class="tag" data-edit="text" data-key="projects.2.tags.2">Vercel</span>
+            </div>
+            <div class="links">
+              <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="projects.2.demo">Live</a>
+              <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="projects.2.repo">Code</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-  <!-- Editor drawer -->
-  <aside id="editor" class="editor" aria-hidden="true" aria-label="Site editor">
-    <header>
-      <div class="row">
-        <strong>Site editor</strong>
-        <span class="helper">Changes auto-save to your browser</span>
+    <section id="contact" class="container">
+      <h3 class="section-title">Contact</h3>
+      <div class="contact">
+        <div class="panel">
+          <p>Want to collaborate or just say hi? I’d love to hear from you.</p>
+          <p>
+            <strong>Email: </strong>
+            <a id="contact-email" href="#" data-edit="email" data-key="contact.email">you@example.com</a>
+          </p>
+          <p><strong>Location: </strong><span id="contact-location" data-edit="text" data-key="contact.location">Your City, Country</span></p>
+          <div class="socials">
+            <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="socials.github">GitHub</a>
+            <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="socials.linkedin">LinkedIn</a>
+            <a class="pill" href="#" target="_blank" rel="noopener" data-edit="href" data-key="socials.twitter">Twitter</a>
+          </div>
+        </div>
+        <div class="panel">
+          <form id="contact-form" onsubmit="return composeMailto(event)">
+            <div class="grid-2">
+              <label>
+                <div class="muted">Your name</div>
+                <input name="name" required placeholder="Jane Doe" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:#0f1326;color:#fff"/>
+              </label>
+              <label>
+                <div class="muted">Your email</div>
+                <input name="from" type="email" required placeholder="you@domain.com" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:#0f1326;color:#fff"/>
+              </label>
+            </div>
+            <label>
+              <div class="muted">Message</div>
+              <textarea name="message" rows="5" required placeholder="Hello! I'd like to chat about..."
+                style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:#0f1326;color:#fff"></textarea>
+            </label>
+            <div style="margin-top:12px">
+              <button class="btn primary" type="submit">Send message</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="row">
-        <button id="close-editor" class="btn">Close</button>
-      </div>
-    </header>
-    <main id="editorContent"></main>
-    <footer style="padding: 12px 16px; border-top: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between;">
-      <div class="helper">Pro tip: Press E to toggle editor • Esc to close</div>
-      <div class="row">
-        <button id="btn-export" class="btn">Export JSON</button>
-        <label class="btn ghost" for="import-file">Import JSON</label>
-        <input id="import-file" type="file" accept="application/json" style="display:none;">
-        <button id="btn-reset" class="btn" title="Reset to defaults">Reset</button>
-      </div>
-    </footer>
-  </aside>
-  <div class="editor-overlay" id="editorOverlay" aria-hidden="true"></div>
+    </section>
+  </main>
 
-  <!-- Floating Actions -->
-  <div class="fab">
-    <button class="btn primary" id="fab-edit" title="Edit site (E)"><span>✏️ Edit</span></button>
-    <button class="btn ghost" id="fab-theme" title="Toggle light/dark">🌓</button>
-  </div>
+  <footer class="container">
+    <div>&copy; <span id="year"></span> <span data-edit="text" data-key="hero.name">Your Name</span>. All rights reserved.</div>
+  </footer>
 
   <script>
-    // Simple portfolio site with proper editing options, localStorage persistence, import/export
-
-    const STORAGE_KEY = 'portfolioData.v1';
+    // Default template data
     const defaultData = {
-      profile: {
-        name: "Alex Doe",
-        title: "Full-Stack Developer",
-        location: "Remote • UTC-5",
-        email: "alex@example.com",
-        phone: "",
-        website: "https://alex.example.com",
-        socials: {
-          github: "https://github.com/alex",
-          linkedin: "https://www.linkedin.com/in/alex",
-          twitter: ""
-        },
-        avatarUrl: "" // data URL or http(s)
+      theme: { primary: getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#6c5ce7' },
+      hero: {
+        name: 'Your Name',
+        role: 'Full-Stack Developer',
+        tagline: 'Hi, I’m',
+        bio: 'I build fast, accessible, and delightful web experiences with a focus on clean design and robust engineering.',
+        resumeHref: '#',
+        avatarSrc: document.getElementById('avatar')?.getAttribute('src') || ''
       },
-      about: "I’m a full‑stack developer with a passion for building delightful products. I enjoy turning complex problems into simple, beautiful and intuitive solutions.\n\nMy current focus is on TypeScript, React, Node.js, and cloud native architectures.",
-      skills: [
-        { name: "JavaScript / TypeScript", level: 90 },
-        { name: "React / Next.js", level: 88 },
-        { name: "Node.js / Express", level: 85 },
-        { name: "CSS / Tailwind", level: 80 },
-        { name: "PostgreSQL", level: 75 }
-      ],
+      about: {
+        text: 'I’m a software engineer with a passion for crafting intuitive interfaces and resilient backends. I care about performance, accessibility, and great developer experience.'
+      },
+      contact: {
+        email: 'you@example.com',
+        location: 'Your City, Country'
+      },
+      socials: {
+        github: '#',
+        linkedin: '#',
+        twitter: '#'
+      },
+      skills: ['HTML','CSS','JavaScript','TypeScript','React','Node.js','Express','PostgreSQL','Docker'],
       projects: [
         {
-          title: "TaskForge",
-          description: "Open-source task management app with offline-first sync and real-time collaboration.",
-          tags: ["React", "PWA", "WebSocket"],
-          link: "https://taskforge.app",
-          repo: "https://github.com/alex/taskforge",
-          image: ""
+          title: 'Project One',
+          description: 'A short description of what this project does and why it’s useful.',
+          image: document.querySelector('[data-key="projects.0.image"]')?.getAttribute('src') || '',
+          tags: ['React','Node.js','PostgreSQL'],
+          demo: '#',
+          repo: '#'
         },
         {
-          title: "ImageMind",
-          description: "AI-powered image restoration and enhancement pipeline.",
-          tags: ["Python", "FastAPI", "ML"],
-          link: "",
-          repo: "https://github.com/alex/imagemind",
-          image: ""
-        }
-      ],
-      experience: [
-        {
-          company: "Acme Corp",
-          role: "Senior Software Engineer",
-          period: "2022 — Present",
-          summary: "Leading the web platform team building scalable, component-driven UIs.",
-          achievements: [
-            "Shipped a design system used across 5 product lines",
-            "Reduced bundle size by 38% with module federation"
-          ]
+          title: 'Project Two',
+          description: 'What problem it solves, the stack, and the key features.',
+          image: document.querySelector('[data-key="projects.1.image"]')?.getAttribute('src') || '',
+          tags: ['TypeScript','Express','Redis'],
+          demo: '#',
+          repo: '#'
         },
         {
-          company: "Globex",
-          role: "Software Engineer",
-          period: "2019 — 2022",
-          summary: "Full-stack engineer on customer success tooling.",
-          achievements: [
-            "Built multi-tenant analytics platform",
-            "Improved onboarding conversion by 22%"
-          ]
+          title: 'Project Three',
+          description: 'Briefly highlight outcomes, metrics, or unique aspects.',
+          image: document.querySelector('[data-key="projects.2.image"]')?.getAttribute('src') || '',
+          tags: ['Next.js','Tailwind','Vercel'],
+          demo: '#',
+          repo: '#'
         }
-      ],
-      education: [
-        { school: "State University", degree: "B.S. Computer Science", period: "2015 — 2019" }
-      ],
-      theme: {
-        mode: "auto", // "light" | "dark" | "auto"
-        primary: "#6366f1",
-        accent: "#22d3ee",
-        fontScale: 1
-      },
-      actions: {
-        contactLink: "", // mailto: or URL; if empty, will use email
-        resumeUrl: ""    // URL to a PDF resume
+      ]
+    };
+
+    // Utilities
+    const STORAGE_KEY = 'portfolioDataV1';
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+    const deepMerge = (base, override) => {
+      if (Array.isArray(base)) return Array.isArray(override) ? override.slice() : base.slice();
+      const out = {...base};
+      for (const k in override || {}) {
+        if (override[k] && typeof override[k] === 'object' && !Array.isArray(override[k])) {
+          out[k] = deepMerge(base[k] || {}, override[k]);
+        } else {
+          out[k] = override[k];
+        }
       }
+      return out;
     };
 
-    const state = {
-      data: loadData(),
-      open: false
-    };
-
-    function loadData() {
+    const loadData = () => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return structuredClone(defaultData);
         const parsed = JSON.parse(raw);
-        // Merge with defaults in case of updates
-        return deepMerge(structuredClone(defaultData), parsed);
-      } catch {
-        return structuredClone(defaultData);
-      }
+        return deepMerge(defaultData, parsed);
+      } catch { return structuredClone(defaultData); }
+    };
+    const saveData = (data) => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    };
+
+    // Apply data to DOM
+    function applyTheme(primary) {
+      document.documentElement.style.setProperty('--primary', primary);
+      document.documentElement.style.setProperty('--primary-600', shadeColor(primary, -10));
     }
-    function saveData() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
-      } catch (e) {
-        console.warn("Save failed:", e);
-      }
-    }
-    function deepMerge(base, ext) {
-      if (Array.isArray(base) && Array.isArray(ext)) return ext.slice();
-      if (typeof base === 'object' && base !== null && typeof ext === 'object' && ext !== null) {
-        const out = { ...base };
-        for (const k of Object.keys(ext)) {
-          out[k] = deepMerge(base[k], ext[k]);
-        }
-        return out;
-      }
-      return ext === undefined ? base : ext;
+    function shadeColor(color, percent) {
+      // color #rrggbb, percent -100..100
+      const f = parseInt(color.slice(1),16), t = percent<0?0:255, p = Math.abs(percent)/100;
+      const R = f>>16, G = f>>8&0x00FF, B = f&0x0000FF;
+      const v = (x)=>Math.round((t-x)*p)+x;
+      return '#' + (0x1000000 + (v(R)<<16) + (v(G)<<8) + v(B)).toString(16).slice(1);
     }
 
-    // Rendering
-    function render() {
-      const { profile, about, skills, projects, experience, education, theme, actions } = state.data;
-
-      // Brand and footer
-      el('#brand-name').textContent = profile?.name ? `${profile.name} — Portfolio` : 'My Portfolio';
-      el('#year').textContent = new Date().getFullYear();
-      el('#footer-name').textContent = profile.name || 'Your Name';
-
-      // Hero
-      const avatar = el('#hero-avatar');
-      avatar.innerHTML = '';
-      if (profile.avatarUrl) {
-        const img = new Image();
-        img.alt = `${profile.name || 'Profile'} avatar`;
-        img.src = profile.avatarUrl;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        avatar.appendChild(img);
-      } else {
-        avatar.textContent = initials(profile.name || 'NA');
-      }
-      el('#hero-name').textContent = profile.name || 'Your Name';
-      el('#hero-title').textContent = [profile.title, profile.location].filter(Boolean).join(' • ');
-
-      // Socials row
-      const socials = el('#hero-socials');
-      socials.innerHTML = '';
-      const socialItems = [
-        { key: 'github', label: 'GitHub' },
-        { key: 'linkedin', label: 'LinkedIn' },
-        { key: 'twitter', label: 'Twitter' },
-        { key: 'website', label: 'Website' },
-      ];
-      for (const s of socialItems) {
-        const url = normalizeUrl(profile.socials?.[s.key] || (s.key === 'website' ? profile.website : ''));
-        if (!url) continue;
-        const a = document.createElement('a');
-        a.href = url;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.className = 'chip';
-        a.textContent = s.label;
-        socials.appendChild(a);
-      }
-
-      // CTAs
-      const contactHref = actions.contactLink || (profile.email ? `mailto:${profile.email}` : '#');
-      const resumeHref = actions.resumeUrl || '#';
-      setHref('#cta-contact', contactHref);
-      setHref('#cta-resume', resumeHref);
-      setHref('#download-resume', resumeHref);
-      el('#cta-resume').textContent = actions.resumeUrl ? 'Download résumé' : 'Résumé (add in editor)';
-      el('#download-resume').textContent = actions.resumeUrl ? 'Print / Save PDF' : 'Print this page';
-
-      // About
-      el('#about').innerHTML = toHtml(about || '');
-
-      // Skills
-      const skillsRoot = el('#skills');
-      skillsRoot.innerHTML = '';
-      (skills || []).forEach(s => {
-        const item = document.createElement('div');
-        item.className = 'skill';
-        item.innerHTML = `
-          <div class="row" style="justify-content:space-between;">
-            <strong>${escapeHtml(s.name || 'Skill')}</strong>
-            <span class="muted">${s.level ?? 0}%</span>
-          </div>
-          <div class="meter"><span style="width:${clampNum(s.level,0,100)}%"></span></div>
-        `;
-        skillsRoot.appendChild(item);
+    function renderSkills(skills) {
+      const wrap = $('#skills-list');
+      wrap.innerHTML = '';
+      skills.forEach((s, i) => {
+        const el = document.createElement('span');
+        el.className = 'chip';
+        el.setAttribute('data-edit', 'text');
+        el.setAttribute('data-key', `skills.${i}`);
+        el.contentEditable = 'false';
+        el.innerText = s;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'remove';
+        remove.textContent = '×';
+        remove.title = 'Remove';
+        remove.addEventListener('click', (e)=>{ e.stopPropagation(); removeSkill(i); });
+        el.appendChild(remove);
+        wrap.appendChild(el);
       });
+    }
+    function removeSkill(index) {
+      currentData.skills.splice(index,1);
+      renderSkills(currentData.skills);
+      if (document.body.classList.contains('editing')) enableEditable();
+    }
 
-      // Projects
-      const projectsRoot = el('#projects');
-      projectsRoot.innerHTML = '';
-      (projects || []).forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        const media = document.createElement('div');
-        media.className = 'project-media';
-        if (p.image) {
-          const img = new Image();
-          img.src = p.image;
-          img.alt = `${p.title || 'Project'} cover`;
-          img.style.width = '100%';
-          img.style.height = '100%';
-          img.style.objectFit = 'cover';
-          media.appendChild(img);
+    function applyData(data) {
+      applyTheme(data.theme.primary || defaultData.theme.primary);
+      // Text fields
+      $$('[data-edit="text"]').forEach(el => {
+        const key = el.dataset.key;
+        const val = getByKey(data, key);
+        if (typeof val === 'string') el.innerText = val;
+      });
+      // Hrefs
+      $$('[data-edit="href"]').forEach(el => {
+        const key = el.dataset.key;
+        const val = getByKey(data, key) || '#';
+        el.setAttribute('href', val);
+      });
+      // Email fields
+      $$('[data-edit="email"]').forEach(el => {
+        const email = data.contact?.email || defaultData.contact.email;
+        el.setAttribute('href', `mailto:${email}`);
+        el.textContent = email;
+      });
+      // Images
+      $$('img[data-edit="src"]').forEach(img => {
+        const key = img.dataset.key;
+        const src = getByKey(data, key);
+        if (src) img.src = src;
+      });
+      // Skills
+      renderSkills(data.skills || []);
+      // Projects tags if changed lengths
+      (data.projects || []).forEach((p, i)=>{
+        const tagsWrap = $(`#tags-${i}`);
+        if (!tagsWrap) return;
+        const currentTags = $$('.tag', tagsWrap);
+        if (currentTags.length !== (p.tags?.length || 0)) {
+          tagsWrap.innerHTML = '';
+          (p.tags||[]).forEach((t, j)=>{
+            const span = document.createElement('span');
+            span.className='tag';
+            span.setAttribute('data-edit','text');
+            span.setAttribute('data-key', `projects.${i}.tags.${j}`);
+            span.textContent = t;
+            tagsWrap.appendChild(span);
+          });
         } else {
-          media.textContent = initials(p.title || 'P');
-        }
-        const body = document.createElement('div');
-        body.className = 'project-body';
-        const title = document.createElement('div');
-        title.innerHTML = `<strong>${escapeHtml(p.title || 'Untitled')}</strong>`;
-        const desc = document.createElement('div');
-        desc.className = 'muted';
-        desc.textContent = p.description || '';
-        const tags = document.createElement('div');
-        tags.className = 'tags';
-        (p.tags || []).forEach(t => {
-          const chip = document.createElement('span');
-          chip.className = 'chip';
-          chip.textContent = t;
-          tags.appendChild(chip);
-        });
-        const links = document.createElement('div');
-        links.className = 'row';
-        const live = normalizeUrl(p.link);
-        const repo = normalizeUrl(p.repo);
-        if (live) {
-          const a = document.createElement('a');
-          a.href = live; a.target = "_blank"; a.rel = "noopener";
-          a.className = 'btn ghost';
-          a.textContent = 'Live';
-          links.appendChild(a);
-        }
-        if (repo) {
-          const a = document.createElement('a');
-          a.href = repo; a.target = "_blank"; a.rel = "noopener";
-          a.className = 'btn ghost';
-          a.textContent = 'Code';
-          links.appendChild(a);
-        }
-        body.appendChild(title);
-        body.appendChild(desc);
-        if ((p.tags || []).length) body.appendChild(tags);
-        if (links.children.length) body.appendChild(links);
-        card.appendChild(media);
-        card.appendChild(body);
-        projectsRoot.appendChild(card);
-      });
-
-      // Experience
-      const expRoot = el('#experience');
-      expRoot.innerHTML = '';
-      (experience || []).forEach(e => {
-        const item = document.createElement('div');
-        item.className = 'experience-item';
-        item.innerHTML = `
-          <div class="exp-head">
-            <div><strong>${escapeHtml(e.role || '')}</strong> <span class="muted">· ${escapeHtml(e.company || '')}</span></div>
-            <div class="muted">${escapeHtml(e.period || '')}</div>
-          </div>
-          <div class="prose" style="margin-top:6px;">
-            <p>${escapeHtml(e.summary || '')}</p>
-            ${Array.isArray(e.achievements) && e.achievements.length ? `
-              <ul style="margin-top:8px; padding-left: 18px;">
-                ${e.achievements.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
-              </ul>
-            ` : ''}
-          </div>
-        `;
-        expRoot.appendChild(item);
-      });
-
-      // Education
-      const eduRoot = el('#education');
-      eduRoot.innerHTML = '';
-      (education || []).forEach(ed => {
-        const item = document.createElement('div');
-        item.className = 'experience-item';
-        item.innerHTML = `
-          <div class="exp-head">
-            <div><strong>${escapeHtml(ed.degree || '')}</strong></div>
-            <div class="muted">${escapeHtml(ed.period || '')}</div>
-          </div>
-          <div class="muted">${escapeHtml(ed.school || '')}</div>
-        `;
-        eduRoot.appendChild(item);
-      });
-
-      // Contact
-      const contactRoot = el('#contact');
-      contactRoot.innerHTML = '';
-      const contactChips = [
-        profile.email ? { href: `mailto:${profile.email}`, label: profile.email } : null,
-        profile.phone ? { href: `tel:${profile.phone}`, label: profile.phone } : null,
-        profile.website ? { href: normalizeUrl(profile.website), label: profile.website } : null,
-        profile.location ? { href: '#', label: profile.location } : null
-      ].filter(Boolean);
-      for (const c of contactChips) {
-        const a = document.createElement('a');
-        a.href = c.href || '#'; a.className = 'chip'; a.textContent = c.label;
-        if (c.href?.startsWith('http')) { a.target = "_blank"; a.rel = "noopener"; }
-        contactRoot.appendChild(a);
-      }
-
-      // Apply theme
-      applyTheme(theme);
-    }
-
-    function applyTheme(theme) {
-      const root = document.documentElement;
-      const mode = theme?.mode || 'auto';
-      root.setAttribute('data-theme', mode);
-      root.style.setProperty('--primary', theme?.primary || defaultData.theme.primary);
-      root.style.setProperty('--accent', theme?.accent || defaultData.theme.accent);
-      root.style.setProperty('--font-scale', String(theme?.fontScale || 1));
-
-      // Update meta theme-color for mobile
-      const metaTheme = document.querySelector('meta[name="theme-color"]');
-      if (metaTheme) metaTheme.setAttribute('content', theme?.primary || defaultData.theme.primary);
-    }
-
-    function setHref(sel, href) {
-      const a = el(sel);
-      if (!a) return;
-      if (href && href !== '#') {
-        a.href = href; a.target = href.startsWith('http') ? '_blank' : '_self';
-        a.rel = href.startsWith('http') ? 'noopener' : '';
-      } else {
-        a.href = '#';
-        a.removeAttribute('target'); a.removeAttribute('rel');
-      }
-    }
-
-    // Editor builder
-    function buildEditor() {
-      const d = state.data;
-      const root = el('#editorContent');
-      root.innerHTML = `
-        <details class="panel" open>
-          <summary>Profile</summary>
-          <div class="panel-body">
-            <div class="grid-2">
-              <div class="field">
-                <label for="edit-name">Name</label>
-                <input id="edit-name" type="text" value="${escapeAttr(d.profile.name)}" placeholder="Your name">
-              </div>
-              <div class="field">
-                <label for="edit-title">Title</label>
-                <input id="edit-title" type="text" value="${escapeAttr(d.profile.title)}" placeholder="e.g. Full-Stack Developer">
-              </div>
-            </div>
-            <div class="grid-2">
-              <div class="field">
-                <label for="edit-location">Location</label>
-                <input id="edit-location" type="text" value="${escapeAttr(d.profile.location || '')}" placeholder="City, Country">
-              </div>
-              <div class="field">
-                <label for="edit-website">Website</label>
-                <input id="edit-website" type="url" value="${escapeAttr(d.profile.website || '')}" placeholder="https://...">
-              </div>
-            </div>
-            <div class="grid-2">
-              <div class="field">
-                <label for="edit-email">Email</label>
-                <input id="edit-email" type="email" value="${escapeAttr(d.profile.email || '')}" placeholder="you@example.com">
-              </div>
-              <div class="field">
-                <label for="edit-phone">Phone</label>
-                <input id="edit-phone" type="tel" value="${escapeAttr(d.profile.phone || '')}" placeholder="+1 ...">
-              </div>
-            </div>
-            <div class="grid-2">
-              <div class="field">
-                <label for="edit-github">GitHub</label>
-                <input id="edit-github" type="url" value="${escapeAttr(d.profile.socials.github || '')}" placeholder="https://github.com/username">
-              </div>
-              <div class="field">
-                <label for="edit-linkedin">LinkedIn</label>
-                <input id="edit-linkedin" type="url" value="${escapeAttr(d.profile.socials.linkedin || '')}" placeholder="https://linkedin.com/in/...">
-              </div>
-            </div>
-            <div class="grid-2">
-              <div class="field">
-                <label for="edit-twitter">Twitter</label>
-                <input id="edit-twitter" type="url" value="${escapeAttr(d.profile.socials.twitter || '')}" placeholder="https://twitter.com/...">
-              </div>
-              <div class="field">
-                <label>Avatar</label>
-                <div class="row">
-                  <input id="edit-avatar-file" type="file" accept="image/*">
-                  <button id="btn-avatar-url" class="btn ghost">Use image URL</button>
-                  ${d.profile.avatarUrl ? '<button id="btn-avatar-clear" class="btn">Remove</button>' : ''}
-                </div>
-                <div class="helper">Tip: Upload an image or paste a link. Recommended 512×512+</div>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details class="panel" open>
-          <summary>About</summary>
-          <div class="panel-body">
-            <div class="field">
-              <label for="edit-about">About you</label>
-              <textarea id="edit-about" placeholder="Write a short bio...">${escapeHtml(d.about || '')}</textarea>
-              <div class="helper">Supports paragraphs. Basic markdown (line breaks) are preserved.</div>
-            </div>
-          </div>
-        </details>
-
-        <details class="panel" open>
-          <summary>Skills</summary>
-          <div class="panel-body">
-            <div id="skills-list" class="list">
-              ${d.skills.map((s, i) => `
-                <div class="list-item" data-skill="${i}">
-                  <div class="grid-2">
-                    <div class="field">
-                      <label>Skill</label>
-                      <input type="text" id="skill-${i}-name" value="${escapeAttr(s.name)}" placeholder="Skill name">
-                    </div>
-                    <div class="field">
-                      <label>Level: <span id="skill-${i}-level-value">${s.level}</span>%</label>
-                      <input type="range" id="skill-${i}-level" min="0" max="100" step="1" value="${clampNum(s.level,0,100)}">
-                    </div>
-                  </div>
-                  <div class="row controls">
-                    <button class="btn ghost" id="skill-${i}-up">↑</button>
-                    <button class="btn ghost" id="skill-${i}-down">↓</button>
-                    <button class="btn" id="skill-${i}-delete">Delete</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            <div class="divider"></div>
-            <div class="row">
-              <button id="skill-add" class="btn primary">Add skill</button>
-            </div>
-          </div>
-        </details>
-
-        <details class="panel" open>
-          <summary>Projects</summary>
-          <div class="panel-body">
-            <div id="projects-list" class="list">
-              ${d.projects.map((p, i) => `
-                <div class="list-item" data-project="${i}">
-                  <div class="field">
-                    <label>Title</label>
-                    <input type="text" id="project-${i}-title" value="${escapeAttr(p.title)}" placeholder="Project title">
-                  </div>
-                  <div class="field">
-                    <label>Description</label>
-                    <textarea id="project-${i}-desc" placeholder="Short description">${escapeHtml(p.description || '')}</textarea>
-                  </div>
-                  <div class="grid-2">
-                    <div class="field">
-                      <label>Tags (comma separated)</label>
-                      <input type="text" id="project-${i}-tags" value="${escapeAttr((p.tags || []).join(', '))}" placeholder="React, Node, ...">
-                    </div>
-                    <div class="field">
-                      <label>Cover image</label>
-                      <div class="row">
-                        <input id="project-${i}-file" type="file" accept="image/*">
-                        <button class="btn ghost" id="project-${i}-img-url">Use URL</button>
-                        ${p.image ? `<button class="btn" id="project-${i}-img-clear">Remove</button>` : ''}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid-2">
-                    <div class="field">
-                      <label>Live link</label>
-                      <input type="url" id="project-${i}-link" value="${escapeAttr(p.link || '')}" placeholder="https://...">
-                    </div>
-                    <div class="field">
-                      <label>Repo link</label>
-                      <input type="url" id="project-${i}-repo" value="${escapeAttr(p.repo || '')}" placeholder="https://github.com/...">
-                    </div>
-                  </div>
-                  <div class="row controls">
-                    <button class="btn ghost" id="project-${i}-up">↑</button>
-                    <button class="btn ghost" id="project-${i}-down">↓</button>
-                    <button class="btn" id="project-${i}-delete">Delete</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            <div class="divider"></div>
-            <div class="row">
-              <button id="project-add" class="btn primary">Add project</button>
-            </div>
-          </div>
-        </details>
-
-        <details class="panel">
-          <summary>Experience</summary>
-          <div class="panel-body">
-            <div id="exp-list" class="list">
-              ${d.experience.map((e, i) => `
-                <div class="list-item" data-exp="${i}">
-                  <div class="grid-2">
-                    <div class="field">
-                      <label>Role</label>
-                      <input type="text" id="exp-${i}-role" value="${escapeAttr(e.role || '')}" placeholder="Job title">
-                    </div>
-                    <div class="field">
-                      <label>Company</label>
-                      <input type="text" id="exp-${i}-company" value="${escapeAttr(e.company || '')}" placeholder="Company">
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label>Period</label>
-                    <input type="text" id="exp-${i}-period" value="${escapeAttr(e.period || '')}" placeholder="YYYY — YYYY">
-                  </div>
-                  <div class="field">
-                    <label>Summary</label>
-                    <textarea id="exp-${i}-summary" placeholder="Short summary">${escapeHtml(e.summary || '')}</textarea>
-                  </div>
-                  <div class="field">
-                    <label>Achievements (one per line)</label>
-                    <textarea id="exp-${i}-achievements" placeholder="- Did X\n- Improved Y">${escapeHtml((e.achievements || []).join('\n'))}</textarea>
-                  </div>
-                  <div class="row controls">
-                    <button class="btn ghost" id="exp-${i}-up">↑</button>
-                    <button class="btn ghost" id="exp-${i}-down">↓</button>
-                    <button class="btn" id="exp-${i}-delete">Delete</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            <div class="row">
-              <button id="exp-add" class="btn primary">Add experience</button>
-            </div>
-          </div>
-        </details>
-
-        <details class="panel">
-          <summary>Education</summary>
-          <div class="panel-body">
-            <div id="edu-list" class="list">
-              ${d.education.map((e, i) => `
-                <div class="list-item" data-edu="${i}">
-                  <div class="field">
-                    <label>Degree</label>
-                    <input type="text" id="edu-${i}-degree" value="${escapeAttr(e.degree || '')}" placeholder="Degree">
-                  </div>
-                  <div class="field">
-                    <label>School</label>
-                    <input type="text" id="edu-${i}-school" value="${escapeAttr(e.school || '')}" placeholder="School">
-                  </div>
-                  <div class="field">
-                    <label>Period</label>
-                    <input type="text" id="edu-${i}-period" value="${escapeAttr(e.period || '')}" placeholder="YYYY — YYYY">
-                  </div>
-                  <div class="row controls">
-                    <button class="btn ghost" id="edu-${i}-up">↑</button>
-                    <button class="btn ghost" id="edu-${i}-down">↓</button>
-                    <button class="btn" id="edu-${i}-delete">Delete</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            <div class="row">
-              <button id="edu-add" class="btn primary">Add education</button>
-            </div>
-          </div>
-        </details>
-
-        <details class="panel">
-          <summary>Theme</summary>
-          <div class="panel-body">
-            <div class="grid-2">
-              <div class="field">
-                <label for="edit-mode">Mode</label>
-                <select id="edit-mode">
-                  <option value="auto" ${d.theme.mode === 'auto' ? 'selected' : ''}>Auto (match system)</option>
-                  <option value="light" ${d.theme.mode === 'light' ? 'selected' : ''}>Light</option>
-                  <option value="dark" ${d.theme.mode === 'dark' ? 'selected' : ''}>Dark</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="edit-fontScale">Font size: <span id="fontScaleValue">${d.theme.fontScale}</span>x</label>
-                <input id="edit-fontScale" type="range" min="0.85" max="1.25" step="0.01" value="${d.theme.fontScale}">
-              </div>
-            </div>
-            <div class="grid-2">
-              <div class="field">
-                <label for="edit-primary">Primary color</label>
-                <input id="edit-primary" type="color" value="${d.theme.primary}">
-              </div>
-              <div class="field">
-                <label for="edit-accent">Accent color</label>
-                <input id="edit-accent" type="color" value="${d.theme.accent}">
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details class="panel">
-          <summary>Links & Actions</summary>
-          <div class="panel-body">
-            <div class="field">
-              <label for="edit-contactLink">Primary contact link</label>
-              <input id="edit-contactLink" type="url" value="${escapeAttr(d.actions.contactLink || '')}" placeholder="mailto:you@example.com or https://...">
-              <div class="helper">If empty, your email will be used for the Contact buttons.</div>
-            </div>
-            <div class="field">
-              <label for="edit-resumeUrl">Resume URL (PDF)</label>
-              <input id="edit-resumeUrl" type="url" value="${escapeAttr(d.actions.resumeUrl || '')}" placeholder="https://.../resume.pdf">
-              <div class="helper">Add a direct link to your PDF résumé to enable the Download résumé button.</div>
-            </div>
-          </div>
-        </details>
-      `;
-
-      // Wire profile inputs
-      onInput('#edit-name', v => set(d => d.profile.name = v));
-      onInput('#edit-title', v => set(d => d.profile.title = v));
-      onInput('#edit-location', v => set(d => d.profile.location = v));
-      onInput('#edit-website', v => set(d => d.profile.website = v));
-      onInput('#edit-email', v => set(d => d.profile.email = v));
-      onInput('#edit-phone', v => set(d => d.profile.phone = v));
-      onInput('#edit-github', v => set(d => d.profile.socials.github = v));
-      onInput('#edit-linkedin', v => set(d => d.profile.socials.linkedin = v));
-      onInput('#edit-twitter', v => set(d => d.profile.socials.twitter = v));
-      const avatarFile = el('#edit-avatar-file');
-      if (avatarFile) avatarFile.addEventListener('change', async ev => {
-        const file = ev.target.files?.[0];
-        if (!file) return;
-        const dataUrl = await fileToDataUrl(file);
-        set(d => d.profile.avatarUrl = dataUrl);
-        ev.target.value = '';
-      });
-      const avatarUrlBtn = el('#btn-avatar-url');
-      if (avatarUrlBtn) avatarUrlBtn.addEventListener('click', () => {
-        const url = window.prompt('Paste image URL:');
-        if (!url) return;
-        set(d => d.profile.avatarUrl = url.trim());
-      });
-      const avatarClear = el('#btn-avatar-clear');
-      if (avatarClear) avatarClear.addEventListener('click', () => set(d => d.profile.avatarUrl = ''));
-
-      // About
-      onInput('#edit-about', v => set(d => d.about = v), true);
-
-      // Skills
-      const addSkill = el('#skill-add');
-      if (addSkill) addSkill.addEventListener('click', () => {
-        set(d => d.skills.push({ name: "New skill", level: 50 }));
-      });
-      (state.data.skills || []).forEach((s, i) => {
-        onInput(`#skill-${i}-name`, v => set(d => d.skills[i].name = v));
-        const levelSlider = el(`#skill-${i}-level`);
-        const levelValue = el(`#skill-${i}-level-value`);
-        if (levelSlider) {
-          levelSlider.addEventListener('input', e => {
-            const val = Number(e.target.value);
-            if (levelValue) levelValue.textContent = String(val);
-            set(d => d.skills[i].level = val);
+          (p.tags||[]).forEach((t, j)=>{
+            const el = $(`[data-key="projects.${i}.tags.${j}"]`);
+            if (el) el.textContent = t;
           });
         }
-        onClick(`#skill-${i}-up`, () => { moveItem(state.data.skills, i, i-1); set(d => d.skills = state.data.skills); });
-        onClick(`#skill-${i}-down`, () => { moveItem(state.data.skills, i, i+1); set(d => d.skills = state.data.skills); });
-        onClick(`#skill-${i}-delete`, () => {
-          if (confirm('Remove this skill?')) set(d => d.skills.splice(i,1));
-        });
       });
-
-      // Projects
-      onClick('#project-add', () => {
-        set(d => d.projects.push({ title: "New project", description: "", tags: [], link: "", repo: "", image: "" }));
-      });
-      (state.data.projects || []).forEach((p, i) => {
-        onInput(`#project-${i}-title`, v => set(d => d.projects[i].title = v));
-        onInput(`#project-${i}-desc`, v => set(d => d.projects[i].description = v), true);
-        onInput(`#project-${i}-tags`, v => {
-          const tags = v.split(',').map(t => t.trim()).filter(Boolean);
-          set(d => d.projects[i].tags = tags);
-        });
-        onInput(`#project-${i}-link`, v => set(d => d.projects[i].link = v));
-        onInput(`#project-${i}-repo`, v => set(d => d.projects[i].repo = v));
-        const file = el(`#project-${i}-file`);
-        if (file) file.addEventListener('change', async ev => {
-          const f = ev.target.files?.[0];
-          if (!f) return;
-          const dataUrl = await fileToDataUrl(f);
-          set(d => d.projects[i].image = dataUrl);
-          ev.target.value = '';
-        });
-        onClick(`#project-${i}-img-url`, () => {
-          const url = window.prompt('Paste image URL:');
-          if (!url) return;
-          set(d => d.projects[i].image = url.trim());
-        });
-        const clear = el(`#project-${i}-img-clear`);
-        if (clear) clear.addEventListener('click', () => set(d => d.projects[i].image = ''));
-        onClick(`#project-${i}-up`, () => { moveItem(state.data.projects, i, i-1); set(d => d.projects = state.data.projects); });
-        onClick(`#project-${i}-down`, () => { moveItem(state.data.projects, i, i+1); set(d => d.projects = state.data.projects); });
-        onClick(`#project-${i}-delete`, () => {
-          if (confirm('Remove this project?')) set(d => d.projects.splice(i,1));
-        });
-      });
-
-      // Experience
-      onClick('#exp-add', () => {
-        set(d => d.experience.push({ company: "", role: "", period: "", summary: "", achievements: [] }));
-      });
-      (state.data.experience || []).forEach((e, i) => {
-        onInput(`#exp-${i}-role`, v => set(d => d.experience[i].role = v));
-        onInput(`#exp-${i}-company`, v => set(d => d.experience[i].company = v));
-        onInput(`#exp-${i}-period`, v => set(d => d.experience[i].period = v));
-        onInput(`#exp-${i}-summary`, v => set(d => d.experience[i].summary = v), true);
-        onInput(`#exp-${i}-achievements`, v => {
-          set(d => d.experience[i].achievements = v.split('\n').map(x => x.replace(/^-+\s*/, '').trim()).filter(Boolean));
-        }, true);
-        onClick(`#exp-${i}-up`, () => { moveItem(state.data.experience, i, i-1); set(d => d.experience = state.data.experience); });
-        onClick(`#exp-${i}-down`, () => { moveItem(state.data.experience, i, i+1); set(d => d.experience = state.data.experience); });
-        onClick(`#exp-${i}-delete`, () => {
-          if (confirm('Remove this experience?')) set(d => d.experience.splice(i,1));
-        });
-      });
-
-      // Education
-      onClick('#edu-add', () => {
-        set(d => d.education.push({ school: "", degree: "", period: "" }));
-      });
-      (state.data.education || []).forEach((e, i) => {
-        onInput(`#edu-${i}-degree`, v => set(d => d.education[i].degree = v));
-        onInput(`#edu-${i}-school`, v => set(d => d.education[i].school = v));
-        onInput(`#edu-${i}-period`, v => set(d => d.education[i].period = v));
-        onClick(`#edu-${i}-up`, () => { moveItem(state.data.education, i, i-1); set(d => d.education = state.data.education); });
-        onClick(`#edu-${i}-down`, () => { moveItem(state.data.education, i, i+1); set(d => d.education = state.data.education); });
-        onClick(`#edu-${i}-delete`, () => {
-          if (confirm('Remove this education item?')) set(d => d.education.splice(i,1));
-        });
-      });
-
-      // Theme
-      onInput('#edit-mode', v => set(d => d.theme.mode = v));
-      const fs = el('#edit-fontScale');
-      const fsv = el('#fontScaleValue');
-      if (fs) fs.addEventListener('input', e => {
-        const val = Number(e.target.value);
-        if (fsv) fsv.textContent = String(val.toFixed(2)).replace(/0+$/,'').replace(/\.$/,'');
-        set(d => d.theme.fontScale = val);
-      });
-      onInput('#edit-primary', v => set(d => d.theme.primary = v));
-      onInput('#edit-accent', v => set(d => d.theme.accent = v));
-
-      // Actions
-      onInput('#edit-contactLink', v => set(d => d.actions.contactLink = v));
-      onInput('#edit-resumeUrl', v => set(d => d.actions.resumeUrl = v));
+      // Update year
+      $('#year').textContent = String(new Date().getFullYear());
     }
 
-    // Utilities
-    function el(sel, root = document) { return root.querySelector(sel); }
-    function onInput(sel, fn, isTextArea = false) {
-      const n = el(sel); if (!n) return;
-      const handler = e => fn(e.target.value);
-      n.addEventListener('input', handler);
-      if (!isTextArea) n.addEventListener('change', handler);
+    function getByKey(obj, dotted) {
+      return dotted.split('.').reduce((o,k)=> (o && typeof o==='object') ? o[k] : undefined, obj);
     }
-    function onClick(sel, fn) {
-      const n = el(sel); if (!n) return;
-      n.addEventListener('click', e => { e.preventDefault(); fn(e); });
+    function setByKey(obj, dotted, value) {
+      const parts = dotted.split('.');
+      const last = parts.pop();
+      const target = parts.reduce((o,k)=> (o[k] ??= {}), obj);
+      target[last] = value;
     }
-    function set(mutator) {
-      mutator(state.data);
-      saveData();
-      render();
-      buildEditor(); // keep editor in sync
+
+    // Collect data back from DOM (for Save)
+    function collectData() {
+      const data = structuredClone(currentData);
+      // Text
+      $$('[data-edit="text"]').forEach(el=>{
+        const key = el.dataset.key;
+        if (!key) return;
+        const val = el.innerText.trim();
+        // For chips in skills we manage separately
+        if (!key.startsWith('skills.')) setByKey(data, key, val);
+      });
+      // Href
+      $$('[data-edit="href"]').forEach(el=>{
+        const key = el.dataset.key;
+        setByKey(data, key, el.getAttribute('href') || '#');
+      });
+      // Email
+      const email = data.contact?.email || defaultData.contact.email;
+      $$('[data-edit="email"]').forEach(el=>{
+        const key = el.dataset.key || 'contact.email';
+        setByKey(data, key, el.textContent.trim() || email);
+      });
+      // Images
+      $$('img[data-edit="src"]').forEach(img=>{
+        const key = img.dataset.key;
+        setByKey(data, key, img.getAttribute('src') || '');
+      });
+      // Skills from chips
+      const skills = [];
+      $$('#skills-list .chip').forEach(chip=>{
+        const textNode = Array.from(chip.childNodes).find(n=>n.nodeType===3);
+        const val = (textNode ? textNode.nodeValue : chip.firstChild?.nodeType===3 ? chip.firstChild.nodeValue : chip.textContent)?.trim();
+        if (val) skills.push(val.replace(/×$/, '').trim());
+      });
+      data.skills = skills;
+      // Project tags
+      (data.projects||[]).forEach((p,i)=>{
+        const wrap = $(`#tags-${i}`);
+        if (!wrap) return;
+        const tags = $$('.tag', wrap).map(el=>el.textContent.trim());
+        p.tags = tags;
+      });
+      return data;
     }
-    function initials(name) {
-      return name.split(/\s+/).slice(0,2).map(p => p[0]?.toUpperCase() || '').join('');
+
+    // Edit Mode handlers
+    function enableEditable() {
+      $$('[data-edit="text"]').forEach(el=>{
+        el.contentEditable = 'plaintext-only';
+      });
+      // For chips, keep the close button at end
+      $$('#skills-list .chip').forEach(chip=>{
+        chip.contentEditable = 'plaintext-only';
+      });
     }
-    function clampNum(n, min, max) {
-      n = Number(n ?? 0);
-      return isFinite(n) ? Math.max(min, Math.min(max, n)) : min;
-    }
-    function normalizeUrl(u) {
-      if (!u) return '';
-      if (u.startsWith('http://') || u.startsWith('https://') || u.startsWith('mailto:') || u.startsWith('tel:')) return u;
-      return `https://${u}`;
-    }
-    function escapeHtml(str) {
-      return String(str ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
-    }
-    function escapeAttr(str) { return escapeHtml(str).replace(/"/g, '&quot;'); }
-    function toHtml(text) {
-      // Basic paragraph renderer: split by blank lines and wrap in <p>
-      const parts = String(text || '').split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
-      return parts.map(p => `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`).join('');
-    }
-    function moveItem(arr, from, to) {
-      if (to < 0 || to >= arr.length) return;
-      const [it] = arr.splice(from, 1);
-      arr.splice(to, 0, it);
-    }
-    function fileToDataUrl(file) {
-      return new Promise((resolve, reject) => {
-        const r = new FileReader();
-        r.onload = () => resolve(r.result);
-        r.onerror = reject;
-        r.readAsDataURL(file);
+    function disableEditable() {
+      $$('[data-edit="text"]').forEach(el=>{
+        el.contentEditable = 'false';
+      });
+      $$('#skills-list .chip').forEach(chip=>{
+        chip.contentEditable = 'false';
       });
     }
 
-    // Editor open/close
-    function openEditor() {
-      state.open = true;
-      document.body.style.overflow = 'hidden';
-      const ed = el('#editor'); ed.classList.add('open'); ed.setAttribute('aria-hidden', 'false');
-      el('#editorOverlay').setAttribute('aria-hidden', 'false');
-      buildEditor();
-    }
-    function closeEditor() {
-      state.open = false;
-      document.body.style.overflow = '';
-      const ed = el('#editor'); ed.classList.remove('open'); ed.setAttribute('aria-hidden', 'true');
-      el('#editorOverlay').setAttribute('aria-hidden', 'true');
-    }
-
-    // Global actions
-    onClick('#open-editor', openEditor);
-    onClick('#fab-edit', openEditor);
-    onClick('#close-editor', closeEditor);
-    onClick('#editorOverlay', closeEditor);
-    document.addEventListener('keydown', e => {
-      if (e.key.toLowerCase() === 'e' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+    function handleEditableClicks(e){
+      if (!document.body.classList.contains('editing')) return;
+      const t = e.target;
+      // Image edit
+      const img = t.closest && t.closest('img[data-edit="src"]');
+      if (img) {
         e.preventDefault();
-        state.open ? closeEditor() : openEditor();
+        openImagePicker(img);
+        return;
       }
-      if (e.key === 'Escape' && state.open) closeEditor();
-    });
-
-    // Theme quick toggles
-    function quickToggleTheme() {
-      const mode = state.data.theme.mode;
-      const next = mode === 'auto' ? 'light' : mode === 'light' ? 'dark' : 'auto';
-      set(d => d.theme.mode = next);
+      // Link edit
+      const a = t.closest && t.closest('a[data-edit="href"]');
+      if (a) {
+        e.preventDefault();
+        const url = prompt('Enter URL', a.getAttribute('href') || '#');
+        if (url !== null) {
+          a.setAttribute('href', url);
+        }
+        return;
+      }
+      // Email edit
+      const em = t.closest && t.closest('[data-edit="email"]');
+      if (em) {
+        e.preventDefault();
+        const current = em.textContent.trim();
+        const val = prompt('Enter email address', current || 'you@example.com');
+        if (val !== null && val.trim()) {
+          em.textContent = val.trim();
+          em.setAttribute('href', `mailto:${val.trim()}`);
+          // also reflect in any other email elements
+          $$('[data-edit="email"]').forEach(e2=>{
+            e2.textContent = val.trim();
+            e2.setAttribute('href', `mailto:${val.trim()}`);
+          });
+        }
+        return;
+      }
     }
-    onClick('#quick-theme', quickToggleTheme);
-    onClick('#fab-theme', quickToggleTheme);
 
-    // Export / Import / Reset
-    onClick('#btn-export', () => {
-      const blob = new Blob([JSON.stringify(state.data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
+    function openImagePicker(imgEl) {
+      const choice = confirm('OK = Upload file, Cancel = Enter image URL');
+      if (choice) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = async () => {
+          const file = input.files?.[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = () => { imgEl.src = reader.result; };
+          reader.readAsDataURL(file);
+        };
+        input.click();
+      } else {
+        const url = prompt('Enter image URL', imgEl.getAttribute('src') || '');
+        if (url !== null) {
+          imgEl.src = url.trim();
+        }
+      }
+    }
+
+    function composeMailto(ev){
+      ev.preventDefault();
+      const data = new FormData(ev.target);
+      const name = data.get('name');
+      const from = data.get('from');
+      const message = data.get('message');
+      const to = currentData.contact?.email || defaultData.contact.email;
+      const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+      const body = encodeURIComponent(`${message}\n\n— ${name}\n${from}`);
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+      return false;
+    }
+
+    // Export / Import
+    function download(filename, text) {
       const a = document.createElement('a');
-      a.href = url; a.download = 'portfolio.json';
-      document.body.appendChild(a); a.click(); a.remove();
-      URL.revokeObjectURL(url);
-    });
-    el('#import-file').addEventListener('change', async e => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      try {
-        const text = await file.text();
-        const obj = JSON.parse(text);
-        if (!obj || typeof obj !== 'object') throw new Error('Invalid JSON');
-        if (!confirm('Import this JSON and replace current content?')) return;
-        state.data = deepMerge(structuredClone(defaultData), obj);
-        saveData();
-        render();
-        buildEditor();
-        alert('Import successful.');
-      } catch (err) {
-        alert('Import failed: ' + err.message);
-      } finally {
-        e.target.value = '';
-      }
-    });
-    onClick('#btn-reset', () => {
-      if (!confirm('Reset all content to defaults? This cannot be undone.')) return;
-      state.data = structuredClone(defaultData);
-      saveData();
-      render();
-      buildEditor();
-    });
+      a.href = URL.createObjectURL(new Blob([text],{type:'application/json'}));
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+    }
 
-    // Print
-    onClick('#download-resume', e => {
-      const url = state.data.actions.resumeUrl;
-      if (!url) {
-        // No resume uploaded, default to printing this page
-        e.preventDefault();
-        window.print();
-      }
-    });
+    // State
+    let currentData = loadData();
 
     // Initial render
-    render();
+    document.addEventListener('DOMContentLoaded', ()=>{
+      applyData(currentData);
+      // Theme input
+      const colorInput = $('#themeColor');
+      if (colorInput) {
+        colorInput.value = currentData.theme?.primary || defaultData.theme.primary;
+        colorInput.addEventListener('input', (e)=>{
+          const val = e.target.value;
+          applyTheme(val);
+        });
+        colorInput.addEventListener('change', (e)=>{
+          const val = e.target.value;
+          currentData.theme.primary = val;
+          saveData(currentData);
+        });
+      }
 
+      // Edit controls
+      const editToggle = $('#editToggle');
+      const editbar = $('#editbar');
+      const saveBtn = $('#saveBtn');
+      const exportBtn = $('#exportBtn');
+      const importInput = $('#importInput');
+      const resetBtn = $('#resetBtn');
+      const exitBtn = $('#exitEditBtn');
+      const addSkillBtn = $('#add-skill');
+
+      editToggle.addEventListener('click', ()=>{
+        const on = !document.body.classList.contains('editing');
+        document.body.classList.toggle('editing', on);
+        editToggle.setAttribute('aria-pressed', String(on));
+        editbar.style.display = on ? 'block' : 'none';
+        if (on) enableEditable(); else disableEditable();
+      });
+      exitBtn.addEventListener('click', ()=>{
+        document.body.classList.remove('editing');
+        editToggle.setAttribute('aria-pressed', 'false');
+        editbar.style.display = 'none';
+        disableEditable();
+      });
+      saveBtn.addEventListener('click', ()=>{
+        currentData = collectData();
+        saveData(currentData);
+        alert('Saved your changes to this browser.');
+      });
+      exportBtn.addEventListener('click', ()=>{
+        const data = collectData();
+        download('portfolio-data.json', JSON.stringify(data, null, 2));
+      });
+      importInput.addEventListener('change', async (e)=>{
+        const file = e.target.files?.[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const obj = JSON.parse(text);
+          currentData = deepMerge(defaultData, obj);
+          applyData(currentData);
+          saveData(currentData);
+          alert('Imported data and saved to this browser.');
+        } catch (err) {
+          alert('Failed to import JSON: ' + err.message);
+        } finally {
+          e.target.value = '';
+        }
+      });
+      resetBtn.addEventListener('click', ()=>{
+        if (confirm('Reset all content to template defaults? This will clear saved data.')) {
+          localStorage.removeItem(STORAGE_KEY);
+          currentData = structuredClone(defaultData);
+          applyData(currentData);
+          alert('Reset complete.');
+        }
+      });
+      addSkillBtn.addEventListener('click', ()=>{
+        currentData.skills.push('New skill');
+        renderSkills(currentData.skills);
+        if (document.body.classList.contains('editing')) enableEditable();
+      });
+
+      // Global capture for editable interactions
+      document.addEventListener('click', handleEditableClicks, true);
+
+      // Ensure all [data-edit] elements show hint in edit mode
+      $$('[data-edit]').forEach(el=>{
+        if (!el.querySelector('.hint') && (el.tagName !== 'A' && el.tagName !== 'IMG')) {
+          const hint = document.createElement('span');
+          hint.className = 'hint';
+          hint.textContent = 'Edit';
+          el.appendChild(hint);
+        }
+      });
+
+      // Sync multiple name fields
+      const nameObserver = new MutationObserver(()=>{
+        const v = $('[data-key="hero.name"]')?.innerText?.trim();
+        if (v) $$('#site-title,[data-key="hero.name"]').forEach(el=>{ if (el !== document.activeElement) el.innerText = v; });
+      });
+      const nameEl = $('[data-key="hero.name"]');
+      if (nameEl) nameObserver.observe(nameEl, {characterData:true,subtree:true,childList:true});
+
+      // Keep email buttons in sync
+      const emailSync = new MutationObserver(()=>{
+        const email = $('[data-edit="email"]')?.textContent?.trim();
+        if (!email) return;
+        $$('[data-edit="email"]').forEach(el=>{
+          el.textContent = email;
+          el.href = `mailto:${email}`;
+        });
+      });
+      $$('[data-edit="email"]').forEach(el=>{
+        emailSync.observe(el, {characterData:true,subtree:true,childList:true});
+      });
+    });
   </script>
 </body>
 </html>
