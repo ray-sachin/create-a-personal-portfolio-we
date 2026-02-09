@@ -1,75 +1,75 @@
-# Personal Portfolio Website
+# Personal Portfolio Website (with in-browser Editor)
 
-A clean, accessible, and responsive personal portfolio website built with semantic HTML, modern CSS, and a sprinkle of JavaScript. No frameworks required.
+A modern, single-file personal portfolio website with built‑in editing tools. All content can be updated directly in the browser and is saved to localStorage. You can export/import your data as JSON or reset to defaults at any time.
 
-## Features
-- Responsive, mobile‑first layout
-- Light/dark/system theme with persistent preference
-- Accessible navigation with keyboard/focus styles and skip link
-- Projects grid, about, skills, experience, and contact sections
-- Contact form using a static form provider (replace with your own)
-- SEO and social meta tags + JSON‑LD structured data
-- No external dependencies; easy to deploy
+No build step required. Just open index.html.
 
-## Live Preview
-Open index.html directly in a browser, or serve it via a simple HTTP server.
+Features
+- Clean, responsive layout with sections for Hero, About, Skills, Projects, Experience, Education, and Contact
+- Proper editing options via a slide-in editor panel
+  - Update profile, socials, avatar (upload file or use image URL)
+  - Edit About text
+  - Manage lists: add, remove, reorder Skills, Projects, Experience, Education
+  - Upload cover images for projects (file or URL)
+  - Customize theme (light/dark/auto, colors, font scale)
+  - Configure primary contact link and résumé URL
+- Auto-save to localStorage
+- Export/import JSON data
+- Print-friendly styling for easy PDF export
 
-- Python: `python3 -m http.server 8080`
-- Node: `npx serve` or `npx http-server`
+Quick start
+1. Download this repository or copy index.html and open it in your browser.
+2. Click Edit site or press E to open the editor.
+3. Update your details. Changes save automatically.
+4. Export your data as JSON to back it up or move to another device.
+5. If you have a hosted PDF resume, add its URL in Edit site → Links & Actions to enable the Download résumé buttons.
 
-Then visit http://localhost:8080.
+Editing options overview
+- Profile
+  - Name, title, location
+  - Email, phone, website
+  - Socials: GitHub, LinkedIn, Twitter
+  - Avatar: upload an image or use a direct image URL
+- About
+  - Write your bio; paragraphs and line-breaks are preserved
+- Skills
+  - Add skill, set level via slider, reorder (↑/↓), and delete
+- Projects
+  - Title, description, tags (comma separated)
+  - Live link and repository link
+  - Cover image via file upload or URL
+  - Reorder and delete
+- Experience
+  - Role, company, period, summary, achievements (one per line)
+  - Reorder and delete
+- Education
+  - Degree, school, period
+  - Reorder and delete
+- Theme
+  - Mode: Light, Dark, or Auto (sync with OS)
+  - Primary and accent colors
+  - Global font size scaling
+- Links & Actions
+  - Primary contact link (leave blank to use your email)
+  - Résumé URL (PDF)
 
-## Project Structure
-- index.html — main HTML document
-- style.css — styles for layout, theming, and responsiveness
-- script.js — theme toggle, mobile menu, and small enhancements
-- README.md — this file
+Data persistence
+- Your edits are saved to your browser’s localStorage under the key portfolioData.v1.
+- Use the Export JSON button in the editor footer to download a backup.
+- To restore or migrate, click Import JSON and select your backup file.
+- Reset returns the site to its default template content.
 
-## Customize
-1. Identity
-   - Update the title, meta description, and Open Graph tags in index.html
-   - Replace "Your Name", email, phone, and location throughout the file
-   - Update the favicon data URI or replace with your own icon
+Keyboard shortcuts
+- E: Toggle editor
+- Esc: Close editor
 
-2. Socials
-   - Update the GitHub and LinkedIn URLs in the hero section
-   - Add or remove icons as needed
+Print/saving to PDF
+- If you don’t have a résumé URL configured, the “Print / Save PDF” button will open the browser’s print dialog for this page.
+- Use your browser’s “Save as PDF” to generate a quick resume from the on-page content (print styles included).
 
-3. Projects
-   - In the “Projects” section, modify each card’s title, description, tags, and links
-   - The SVG thumbnails are placeholders you can keep or replace with images/screenshots
+Notes
+- All functionality is implemented in a single HTML file for portability. You can split CSS/JS into separate files if you prefer.
+- File uploads (avatar and project images) are stored as base64 data URLs inside localStorage; large images can increase storage usage. Prefer optimized images or hosted URLs where possible.
 
-4. Skills and Experience
-   - Edit lists in the Skills and Experience sections to reflect your background
-
-5. Contact Form
-   - Replace the `action` attribute on the form with your form endpoint (e.g., Formspree, Getform, Basin)
-   - Or remove the form and use a direct `mailto:` link
-   - If using Formspree, create a form and replace `https://formspree.io/f/your-form-id` with your form URL
-
-6. Theming
-   - The theme cycles through System → Dark → Light via the toggle
-   - Colors are defined with CSS variables at the top of style.css
-   - Force a theme by setting `data-theme="dark"` or `data-theme="light"` on `<html>`
-
-7. Analytics (optional)
-   - Add your analytics script (e.g., Plausible) near the end of `index.html`
-
-## Accessibility Notes
-- Keyboard users can use the “Skip to main content” link that appears on focus
-- Focus outlines are preserved and visible
-- Color contrast is tuned for both light and dark modes
-- Semantic HTML tags and labels are used across the site
-
-## Performance Tips
-- Replace placeholder SVGs with optimized images (use `loading="lazy"` for non-critical images)
-- Minify CSS/JS for production
-- Use a CDN or HTTP/2 server push for critical assets if needed
-
-## Deployment
-- GitHub Pages: push to `main`, then enable Pages in repo settings
-- Netlify: drag and drop the folder or connect the repository
-- Vercel: import the repository and deploy with default settings
-
-## License
-MIT — feel free to use and modify for your own portfolio.
+License
+- MIT — Feel free to use, modify, and share.
