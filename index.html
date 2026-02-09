@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Name — Portfolio</title>
+  <meta name="description" content="Personal portfolio of Your Name, a full‑stack web developer specializing in modern, accessible, and performant web apps.">
+  <meta name="keywords" content="portfolio, web developer, frontend, backend, full stack, JavaScript, TypeScript, React, Node.js">
+  <meta property="og:title" content="Your Name — Portfolio">
+  <meta property="og:description" content="Full‑stack developer building modern, accessible, and performant web apps.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://example.com/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' ry='20' fill='%237c3aed'/%3E%3Ctext x='50' y='62' font-size='48' text-anchor='middle' fill='white' font-family='Segoe UI, Roboto, Arial, sans-serif'%3EYN%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Your Name",
+    "url": "https://example.com",
+    "email": "mailto:you@example.com",
+    "image": "https://example.com/avatar.png",
+    "sameAs": [
+      "https://github.com/yourhandle",
+      "https://www.linkedin.com/in/yourhandle/"
+    ],
+    "jobTitle": "Full-Stack Web Developer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Freelance"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand-mark" aria-hidden="true">YN</span>
+        <span class="brand-text">Your Name</span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <button id="menuToggle" class="icon-btn mobile-only" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+
+        <ul id="navLinks" class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li class="theme-slot">
+            <button id="themeToggle" class="icon-btn" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle theme">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm8-4a1 1 0 0 1 1 1 1 1 0 1 1-2 0 1 1 0 0 1 1-1zM4 14a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm14.95-7.536a1 1 0 0 1 0 1.415l-.707.707a1 1 0 1 1-1.415-1.414l.707-.708a1 1 0 0 1 1.415 0zM6.172 16.95a1 1 0 0 1 0 1.414l-.707.708A1 1 0 1 1 4.05 17.66l.707-.707a1 1 0 0 1 1.415 0zM20 11h1a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2zM3 11h1a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2zm13.778 7.778a1 1 0 0 1 0 1.414l-.707.707a1 1 0 0 1-1.415-1.414l.707-.707a1 1 0 0 1 1.415 0zM7.343 5.05a1 1 0 0 1 0 1.415l-.707.707A1 1 0 0 1 5.222 5.76l.707-.707a1 1 0 0 1 1.414 0z"></path>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <p class="eyebrow">Hello, I'm</p>
+          <h1>Your Name</h1>
+          <p class="subtitle">Full‑stack web developer crafting fast, accessible, and delightful digital experiences.</p>
+          <div class="cta">
+            <a class="btn" href="#projects">View Projects</a>
+            <a class="btn secondary" href="mailto:you@example.com?subject=Hello%20from%20your%20portfolio">Get in touch</a>
+          </div>
+          <ul class="socials" aria-label="Social links">
+            <li>
+              <a href="https://github.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M12 2C6.475 2 2 6.588 2 12.253c0 4.527 2.865 8.365 6.839 9.724.5.095.683-.221.683-.492 0-.242-.01-1.043-.014-1.893-2.782.615-3.37-1.205-3.37-1.205-.455-1.183-1.112-1.498-1.112-1.498-.909-.639.07-.626.07-.626 1.004.073 1.533 1.06 1.533 1.06.894 1.57 2.345 1.116 2.915.853.092-.663.35-1.116.637-1.373-2.222-.258-4.558-1.14-4.558-5.074 0-1.12.388-2.035 1.026-2.753-.103-.259-.445-1.301.098-2.712 0 0 .839-.273 2.75 1.052a9.219 9.219 0 0 1 2.504-.344c.85.004 1.706.117 2.505.344 1.91-1.325 2.747-1.052 2.747-1.052.545 1.411.203 2.453.1 2.712.64.718 1.024 1.633 1.024 2.753 0 3.944-2.34 4.813-4.57 5.067.359.319.68.948.68 1.912 0 1.378-.012 2.487-.012 2.826 0 .274.18.591.689.49C19.14 20.615 22 16.778 22 12.253 22 6.588 17.523 2 12 2z"/>
+                </svg>
+                <span class="visually-hidden">GitHub</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/yourhandle/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M20.447 20.452H17.21v-5.57c0-1.329-.025-3.037-1.852-3.037-1.853 0-2.136 1.447-2.136 2.944v5.663H9.083V9h3.107v1.561h.044c.434-.823 1.494-1.69 3.074-1.69 3.29 0 3.897 2.166 3.897 4.984v6.597zM5.337 7.433a1.804 1.804 0 1 1 0-3.608 1.804 1.804 0 0 1 0 3.608zM6.95 20.452H3.72V9h3.231v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.73v20.54C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.73C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                <span class="visually-hidden">LinkedIn</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <svg class="hero-blob" viewBox="0 0 600 600">
+            <defs>
+              <linearGradient id="grad" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#7c3aed"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad)" d="M300,519.6C229.7,525.7,138.5,533,94,477.4C49.4,421.7,51.4,302.9,84.5,216.5C117.7,130.2,182,76.3,252.3,63.2C322.5,50,398.8,77.7,451.7,130.8C504.5,184,533.9,262.6,516.2,330.9C498.5,399.2,433.6,457.4,363.3,491.7C293,526,370.3,513.5,300,519.6Z"/>
+          </svg>
+          <div class="avatar">
+            <span aria-hidden="true">YN</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About</h2>
+        <p>I'm a full‑stack developer with a passion for building reliable and accessible web applications. I love turning complex problems into simple, beautiful, and intuitive solutions.</p>
+        <p>My toolbox includes JavaScript/TypeScript, React, Node.js, and modern CSS. I care about performance, testing, and clean architecture.</p>
+        <ul class="checks">
+          <li>Accessible, inclusive interfaces</li>
+          <li>Performance‑minded and test‑driven</li>
+          <li>Clear communication and documentation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects" class="section alt">
+      <div class="container">
+        <h2>Projects</h2>
+
+        <div class="projects-grid">
+          <article class="card project">
+            <figure class="thumb" aria-hidden="true">
+              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#7c3aed"/>
+                    <stop offset="100%" stop-color="#22d3ee"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="240" rx="14" fill="url(#p1)"/>
+                <g fill="white" opacity="0.85">
+                  <rect x="40" y="40" width="220" height="18" rx="4"/>
+                  <rect x="40" y="70" width="140" height="14" rx="4"/>
+                  <rect x="40" y="100" width="320" height="8" rx="4"/>
+                  <rect x="40" y="118" width="280" height="8" rx="4"/>
+                  <rect x="40" y="136" width="200" height="8" rx="4"/>
+                </g>
+              </svg>
+            </figure>
+            <div class="card-body">
+              <h3>Project One</h3>
+              <p>Responsive dashboard template with authentication, charts, and dark mode.</p>
+              <ul class="tags">
+                <li>React</li>
+                <li>TypeScript</li>
+                <li>Vite</li>
+              </ul>
+              <div class="actions">
+                <a class="btn small" href="#" target="_blank" rel="noopener">Live Demo</a>
+                <a class="btn small secondary" href="#" target="_blank" rel="noopener">Source</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card project">
+            <figure class="thumb" aria-hidden="true">
+              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="p2" x1="1" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#06b6d4"/>
+                    <stop offset="100%" stop-color="#22c55e"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="240" rx="14" fill="url(#p2)"/>
+                <g fill="white" opacity="0.85">
+                  <rect x="40" y="44" width="120" height="14" rx="4"/>
+                  <rect x="40" y="76" width="320" height="10" rx="4"/>
+                  <rect x="40" y="94" width="300" height="10" rx="4"/>
+                  <rect x="40" y="112" width="260" height="10" rx="4"/>
+                  <rect x="40" y="152" width="220" height="28" rx="6"/>
+                </g>
+              </svg>
+            </figure>
+            <div class="card-body">
+              <h3>Project Two</h3>
+              <p>API‑driven e‑commerce backend with payments, webhooks, and admin panel.</p>
+              <ul class="tags">
+                <li>Node.js</li>
+                <li>Express</li>
+                <li>PostgreSQL</li>
+              </ul>
+              <div class="actions">
+                <a class="btn small" href="#" target="_blank" rel="noopener">Live Demo</a>
+                <a class="btn small secondary" href="#" target="_blank" rel="noopener">Source</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card project">
+            <figure class="thumb" aria-hidden="true">
+              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="p3" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#ef4444"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="240" rx="14" fill="url(#p3)"/>
+                <g fill="white" opacity="0.85">
+                  <circle cx="200" cy="90" r="38"/>
+                  <rect x="80" y="150" width="240" height="14" rx="4"/>
+                  <rect x="110" y="172" width="180" height="10" rx="4"/>
+                </g>
+              </svg>
+            </figure>
+            <div class="card-body">
+              <h3>Project Three</h3>
+              <p>Static site generator theme focused on accessibility and performance.</p>
+              <ul class="tags">
+                <li>11ty</li>
+                <li>Nunjucks</li>
+                <li>SCSS</li>
+              </ul>
+              <div class="actions">
+                <a class="btn small" href="#" target="_blank" rel="noopener">Live Demo</a>
+                <a class="btn small secondary" href="#" target="_blank" rel="noopener">Source</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skillset">
+            <h3>Frontend</h3>
+            <ul class="pill-list">
+              <li>HTML5</li><li>CSS3</li><li>Accessibility (a11y)</li>
+              <li>JavaScript</li><li>TypeScript</li>
+              <li>React</li><li>Next.js</li><li>Vite</li>
+            </ul>
+          </div>
+          <div class="skillset">
+            <h3>Backend</h3>
+            <ul class="pill-list">
+              <li>Node.js</li><li>Express</li><li>NestJS</li>
+              <li>PostgreSQL</li><li>Prisma</li><li>MongoDB</li>
+              <li>REST</li><li>GraphQL</li>
+            </ul>
+          </div>
+          <div class="skillset">
+            <h3>Tools</h3>
+            <ul class="pill-list">
+              <li>Git</li><li>Docker</li><li>CI/CD</li>
+              <li>Jest</li><li>Playwright</li><li>Storybook</li>
+              <li>Figma</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section alt">
+      <div class="container">
+        <h2>Experience</h2>
+        <ol class="timeline">
+          <li>
+            <div class="time">2023 — Present</div>
+            <div class="details">
+              <h3>Senior Full‑Stack Developer • Freelance</h3>
+              <p>Delivering end‑to‑end web solutions for startups and SMBs: from discovery and design to deployment and maintenance.</p>
+              <ul>
+                <li>Led 5+ projects to production with modern CI/CD pipelines</li>
+                <li>Improved Core Web Vitals, lifting LCP under 2.5s</li>
+                <li>Built reusable component libraries with Storybook</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="time">2021 — 2023</div>
+            <div class="details">
+              <h3>Software Engineer • Example Co.</h3>
+              <p>Worked on a multi‑tenant SaaS platform, focusing on performance and developer experience.</p>
+              <ul>
+                <li>Migrated legacy codebase to TypeScript</li>
+                <li>Implemented feature flags and A/B testing</li>
+                <li>Reduced bundle size by 35% via code‑splitting</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container contact-grid">
+        <div>
+          <h2>Contact</h2>
+          <p>Interested in working together or just want to say hello? I’d love to hear from you.</p>
+          <ul class="contact-list">
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5L4 6h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+              <a href="mailto:you@example.com">you@example.com</a>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.3 22 2 13.7 2 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>
+              <a href="tel:+10000000000">+1 (000) 000‑0000</a>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.9 2a1 1 0 0 0-.95.68l-1.7 5.1H3a1 1 0 1 0 0 2h4.6l-.9 2.7H3a1 1 0 1 0 0 2h2.9l-1.7 5.1a1 1 0 0 0 1.9.64l2-5.74h4.4l-2 5.74a1 1 0 1 0 1.9.64l2.1-6.1H21a1 1 0 1 0 0-2h-4.2l.9-2.7H21a1 1 0 1 0 0-2h-3.1l1.7-5.1a1 1 0 1 0-1.9-.64L15.7 7.78h-4.4l2-5.74A1 1 0 0 0 10.9 2zm3.3 7.78-.9 2.7H8.9l.9-2.7h4.4z"/></svg>
+              Based in Your City, Country
+            </li>
+          </ul>
+        </div>
+
+        <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="_replyto" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="Portfolio Contact">
+          <button class="btn" type="submit">Send Message</button>
+          <p class="form-note">This form uses a static form service. Replace the action URL with your own provider or reach me directly at <a href="mailto:you@example.com">you@example.com</a>.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Your Name. All rights reserved.</p>
+      <a class="to-top" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
