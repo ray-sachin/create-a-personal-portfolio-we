@@ -1,353 +1,1500 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="auto">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Name — Portfolio</title>
-  <meta name="description" content="Personal portfolio of Your Name, a full‑stack web developer specializing in modern, accessible, and performant web apps.">
-  <meta name="keywords" content="portfolio, web developer, frontend, backend, full stack, JavaScript, TypeScript, React, Node.js">
-  <meta property="og:title" content="Your Name — Portfolio">
-  <meta property="og:description" content="Full‑stack developer building modern, accessible, and performant web apps.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://example.com/">
-  <meta property="og:image" content="https://example.com/og-image.png">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' ry='20' fill='%237c3aed'/%3E%3Ctext x='50' y='62' font-size='48' text-anchor='middle' fill='white' font-family='Segoe UI, Roboto, Arial, sans-serif'%3EYN%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Your Name",
-    "url": "https://example.com",
-    "email": "mailto:you@example.com",
-    "image": "https://example.com/avatar.png",
-    "sameAs": [
-      "https://github.com/yourhandle",
-      "https://www.linkedin.com/in/yourhandle/"
-    ],
-    "jobTitle": "Full-Stack Web Developer",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Freelance"
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <meta name="description" content="Personal portfolio website with live editing.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#6366f1">
+  <style>
+    :root {
+      --primary: #6366f1; /* indigo-500 */
+      --accent: #22d3ee;  /* cyan-400 */
+      --bg: #0b1220;
+      --bg-muted: #0f172a;
+      --surface: #0f172a;
+      --surface-2: #111827;
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --ring: color-mix(in oklab, var(--primary), transparent 65%);
+      --radius: 14px;
+      --shadow-1: 0 10px 30px rgba(0,0,0,.35);
+      --shadow-2: 0 3px 10px rgba(0,0,0,.25);
+      --font-scale: 1;
     }
-  }
-  </script>
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --bg-muted: #f1f5f9;
+        --surface: #ffffff;
+        --surface-2: #f8fafc;
+        --text: #0f172a;
+        --text-muted: #475569;
+        --border: #e5e7eb;
+        --shadow-1: 0 10px 30px rgba(0,0,0,.08);
+        --shadow-2: 0 2px 8px rgba(0,0,0,.06);
+      }
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-muted: #f1f5f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e5e7eb;
+      --shadow-1: 0 10px 30px rgba(0,0,0,.08);
+      --shadow-2: 0 2px 8px rgba(0,0,0,.06);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1220;
+      --bg-muted: #0f172a;
+      --surface: #0f172a;
+      --surface-2: #111827;
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --shadow-1: 0 10px 30px rgba(0,0,0,.35);
+      --shadow-2: 0 3px 10px rgba(0,0,0,.25);
+    }
+
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, color-mix(in oklab, var(--primary), transparent 90%), transparent 70%),
+                  radial-gradient(800px 600px at -10% 0%, color-mix(in oklab, var(--accent), transparent 90%), transparent 70%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: calc(16px * var(--font-scale));
+      transition: background .2s ease, color .2s ease;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 32px 0 80px;
+    }
+
+    header.nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: color-mix(in oklab, var(--surface), transparent 25%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .brand .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--primary);
+      box-shadow: 0 0 0 6px color-mix(in oklab, var(--primary), transparent 75%);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn, button, input[type="file"]::file-selector-button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      box-shadow: var(--shadow-2);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary {
+      background: linear-gradient(180deg, color-mix(in oklab, var(--primary), white 8%), var(--primary));
+      color: white;
+      border-color: color-mix(in oklab, var(--primary), black 6%);
+      box-shadow: 0 6px 18px color-mix(in oklab, var(--primary), transparent 70%);
+    }
+    .btn.ghost {
+      background: var(--surface-2);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .9em;
+      color: var(--text-muted);
+    }
+    .grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+    .card {
+      background: color-mix(in oklab, var(--surface), transparent 0%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+      overflow: clip;
+    }
+    .card .p {
+      padding: 18px;
+    }
+    .hero {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 140px 1fr auto;
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-1);
+      background: linear-gradient(135deg, color-mix(in oklab, var(--primary), transparent 80%), transparent 80%), var(--bg-muted);
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 36px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: .3px;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    section {
+      margin-top: 26px;
+    }
+    section h2 {
+      margin: 0 0 12px 0;
+      font-size: 1.3rem;
+      letter-spacing: .3px;
+    }
+    .prose p {
+      margin: 0 0 10px 0;
+    }
+    .skills-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .skill {
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .meter {
+      height: 8px;
+      border-radius: 999px;
+      background: color-mix(in oklab, var(--text-muted), transparent 80%);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .meter > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width .3s ease;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .project-card {
+      display: grid;
+      grid-template-rows: 160px auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: clip;
+      background: var(--surface);
+      box-shadow: var(--shadow-1);
+    }
+    .project-media {
+      background: linear-gradient(180deg, color-mix(in oklab, var(--primary), transparent 85%), transparent 10%), var(--bg-muted);
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: .5px;
+      user-select: none;
+    }
+    .project-body {
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+    .experience-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: var(--shadow-2);
+    }
+    .exp-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .muted { color: var(--text-muted); }
+    .footer {
+      margin-top: 36px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Editor panel */
+    .editor-overlay {
+      position: fixed;
+      inset: 0;
+      background: color-mix(in oklab, black, transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+      z-index: 80;
+    }
+    .editor {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(680px, 100%);
+      height: 100%;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      transform: translateX(102%);
+      transition: transform .25s ease;
+      z-index: 90;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      box-shadow: -20px 0 50px rgba(0,0,0,.2);
+    }
+    .editor.open { transform: translateX(0%); }
+    .editor.open ~ .editor-overlay { opacity: 1; pointer-events: auto; }
+    .editor header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: color-mix(in oklab, var(--surface), transparent 0%);
+    }
+    .editor main {
+      overflow: auto;
+      padding: 14px 16px 90px;
+      display: grid;
+      gap: 16px;
+      background:
+        linear-gradient(180deg, color-mix(in oklab, var(--accent), transparent 98%), transparent 60%),
+        var(--surface);
+    }
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+    .panel summary {
+      padding: 14px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      outline: none;
+      user-select: none;
+    }
+    .panel[open] summary {
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in oklab, var(--surface), transparent 6%);
+    }
+    .panel .panel-body {
+      padding: 14px 16px;
+      display: grid;
+      gap: 12px;
+    }
+    .grid-2 {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+    .field label {
+      font-size: .92em;
+      color: var(--text-muted);
+    }
+    .field input[type="text"],
+    .field input[type="email"],
+    .field input[type="url"],
+    .field input[type="tel"],
+    .field input[type="color"],
+    .field input[type="number"],
+    .field textarea,
+    .field select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      outline: 2px solid transparent;
+      transition: outline-color .15s ease, border-color .15s ease;
+    }
+    .field textarea { min-height: 120px; resize: vertical; }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline-color: var(--ring);
+      border-color: var(--primary);
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .list {
+      display: grid;
+      gap: 10px;
+    }
+    .list-item {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      background: color-mix(in oklab, var(--surface), transparent 6%);
+    }
+    .list-item .row.controls {
+      justify-content: flex-end;
+    }
+    .fab {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 70;
+      display: grid;
+      gap: 8px;
+    }
+    .kbd {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: .8em;
+      color: var(--text-muted);
+    }
+    .divider { height: 1px; background: var(--border); margin: 6px 0; }
+    .helper {
+      font-size: .9em;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 100px 1fr; grid-template-rows: auto auto; }
+      .avatar { width: 100px; height: 100px; border-radius: 18px; }
+      .hero-cta { grid-column: 1 / -1; justify-content: flex-start; }
+      .col-8, .col-6, .col-4 { grid-column: span 12; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    /* Print for resume */
+    @media print {
+      .nav-actions, .fab, .editor, .editor-overlay { display: none !important; }
+      body { background: white; color: #111; box-shadow: none; }
+      .card, .experience-item { box-shadow: none; }
+    }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-
-  <header class="site-header" id="top">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="brand-mark" aria-hidden="true">YN</span>
-        <span class="brand-text">Your Name</span>
-      </a>
-
-      <nav class="primary-nav" aria-label="Primary">
-        <button id="menuToggle" class="icon-btn mobile-only" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
-          <span class="hamburger" aria-hidden="true"></span>
-        </button>
-
-        <ul id="navLinks" class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="theme-slot">
-            <button id="themeToggle" class="icon-btn" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle theme">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm8-4a1 1 0 0 1 1 1 1 1 0 1 1-2 0 1 1 0 0 1 1-1zM4 14a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm14.95-7.536a1 1 0 0 1 0 1.415l-.707.707a1 1 0 1 1-1.415-1.414l.707-.708a1 1 0 0 1 1.415 0zM6.172 16.95a1 1 0 0 1 0 1.414l-.707.708A1 1 0 1 1 4.05 17.66l.707-.707a1 1 0 0 1 1.415 0zM20 11h1a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2zM3 11h1a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2zm13.778 7.778a1 1 0 0 1 0 1.414l-.707.707a1 1 0 0 1-1.415-1.414l.707-.707a1 1 0 0 1 1.415 0zM7.343 5.05a1 1 0 0 1 0 1.415l-.707.707A1 1 0 0 1 5.222 5.76l.707-.707a1 1 0 0 1 1.414 0z"></path>
-              </svg>
-            </button>
-          </li>
-        </ul>
-      </nav>
+  <header class="nav" role="navigation" aria-label="Top navigation">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="brand-name">My Portfolio</span>
+      </div>
+      <div class="nav-actions">
+        <button id="quick-theme" class="btn ghost" title="Toggle light/dark theme">Toggle theme</button>
+        <a id="download-resume" class="btn" href="#" target="_blank" rel="noopener">Print / Save PDF</a>
+        <button id="open-editor" class="btn primary">Edit site</button>
+      </div>
     </div>
   </header>
 
-  <main id="main">
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-content">
-          <p class="eyebrow">Hello, I'm</p>
-          <h1>Your Name</h1>
-          <p class="subtitle">Full‑stack web developer crafting fast, accessible, and delightful digital experiences.</p>
-          <div class="cta">
-            <a class="btn" href="#projects">View Projects</a>
-            <a class="btn secondary" href="mailto:you@example.com?subject=Hello%20from%20your%20portfolio">Get in touch</a>
+  <div class="container" id="app" aria-live="polite">
+    <!-- Hero -->
+    <div class="card">
+      <div class="p">
+        <div class="hero">
+          <div class="avatar" id="hero-avatar" aria-label="Profile image"></div>
+          <div>
+            <h1 id="hero-name">Your Name</h1>
+            <div class="subtitle" id="hero-title">Job Title • Location</div>
+            <div class="row" id="hero-socials" style="margin-top: 10px;"></div>
           </div>
-          <ul class="socials" aria-label="Social links">
-            <li>
-              <a href="https://github.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="currentColor" d="M12 2C6.475 2 2 6.588 2 12.253c0 4.527 2.865 8.365 6.839 9.724.5.095.683-.221.683-.492 0-.242-.01-1.043-.014-1.893-2.782.615-3.37-1.205-3.37-1.205-.455-1.183-1.112-1.498-1.112-1.498-.909-.639.07-.626.07-.626 1.004.073 1.533 1.06 1.533 1.06.894 1.57 2.345 1.116 2.915.853.092-.663.35-1.116.637-1.373-2.222-.258-4.558-1.14-4.558-5.074 0-1.12.388-2.035 1.026-2.753-.103-.259-.445-1.301.098-2.712 0 0 .839-.273 2.75 1.052a9.219 9.219 0 0 1 2.504-.344c.85.004 1.706.117 2.505.344 1.91-1.325 2.747-1.052 2.747-1.052.545 1.411.203 2.453.1 2.712.64.718 1.024 1.633 1.024 2.753 0 3.944-2.34 4.813-4.57 5.067.359.319.68.948.68 1.912 0 1.378-.012 2.487-.012 2.826 0 .274.18.591.689.49C19.14 20.615 22 16.778 22 12.253 22 6.588 17.523 2 12 2z"/>
-                </svg>
-                <span class="visually-hidden">GitHub</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/yourhandle/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="currentColor" d="M20.447 20.452H17.21v-5.57c0-1.329-.025-3.037-1.852-3.037-1.853 0-2.136 1.447-2.136 2.944v5.663H9.083V9h3.107v1.561h.044c.434-.823 1.494-1.69 3.074-1.69 3.29 0 3.897 2.166 3.897 4.984v6.597zM5.337 7.433a1.804 1.804 0 1 1 0-3.608 1.804 1.804 0 0 1 0 3.608zM6.95 20.452H3.72V9h3.231v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.73v20.54C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.73C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-                <span class="visually-hidden">LinkedIn</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <svg class="hero-blob" viewBox="0 0 600 600">
-            <defs>
-              <linearGradient id="grad" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0%" stop-color="#7c3aed"/>
-                <stop offset="100%" stop-color="#06b6d4"/>
-              </linearGradient>
-            </defs>
-            <path fill="url(#grad)" d="M300,519.6C229.7,525.7,138.5,533,94,477.4C49.4,421.7,51.4,302.9,84.5,216.5C117.7,130.2,182,76.3,252.3,63.2C322.5,50,398.8,77.7,451.7,130.8C504.5,184,533.9,262.6,516.2,330.9C498.5,399.2,433.6,457.4,363.3,491.7C293,526,370.3,513.5,300,519.6Z"/>
-          </svg>
-          <div class="avatar">
-            <span aria-hidden="true">YN</span>
+          <div class="hero-cta">
+            <a id="cta-contact" href="#" class="btn primary">Contact me</a>
+            <a id="cta-resume" href="#" class="btn ghost">Download résumé</a>
           </div>
         </div>
       </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="container">
-        <h2>About</h2>
-        <p>I'm a full‑stack developer with a passion for building reliable and accessible web applications. I love turning complex problems into simple, beautiful, and intuitive solutions.</p>
-        <p>My toolbox includes JavaScript/TypeScript, React, Node.js, and modern CSS. I care about performance, testing, and clean architecture.</p>
-        <ul class="checks">
-          <li>Accessible, inclusive interfaces</li>
-          <li>Performance‑minded and test‑driven</li>
-          <li>Clear communication and documentation</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="projects" class="section alt">
-      <div class="container">
-        <h2>Projects</h2>
-
-        <div class="projects-grid">
-          <article class="card project">
-            <figure class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#7c3aed"/>
-                    <stop offset="100%" stop-color="#22d3ee"/>
-                  </linearGradient>
-                </defs>
-                <rect width="400" height="240" rx="14" fill="url(#p1)"/>
-                <g fill="white" opacity="0.85">
-                  <rect x="40" y="40" width="220" height="18" rx="4"/>
-                  <rect x="40" y="70" width="140" height="14" rx="4"/>
-                  <rect x="40" y="100" width="320" height="8" rx="4"/>
-                  <rect x="40" y="118" width="280" height="8" rx="4"/>
-                  <rect x="40" y="136" width="200" height="8" rx="4"/>
-                </g>
-              </svg>
-            </figure>
-            <div class="card-body">
-              <h3>Project One</h3>
-              <p>Responsive dashboard template with authentication, charts, and dark mode.</p>
-              <ul class="tags">
-                <li>React</li>
-                <li>TypeScript</li>
-                <li>Vite</li>
-              </ul>
-              <div class="actions">
-                <a class="btn small" href="#" target="_blank" rel="noopener">Live Demo</a>
-                <a class="btn small secondary" href="#" target="_blank" rel="noopener">Source</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card project">
-            <figure class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <linearGradient id="p2" x1="1" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#06b6d4"/>
-                    <stop offset="100%" stop-color="#22c55e"/>
-                  </linearGradient>
-                </defs>
-                <rect width="400" height="240" rx="14" fill="url(#p2)"/>
-                <g fill="white" opacity="0.85">
-                  <rect x="40" y="44" width="120" height="14" rx="4"/>
-                  <rect x="40" y="76" width="320" height="10" rx="4"/>
-                  <rect x="40" y="94" width="300" height="10" rx="4"/>
-                  <rect x="40" y="112" width="260" height="10" rx="4"/>
-                  <rect x="40" y="152" width="220" height="28" rx="6"/>
-                </g>
-              </svg>
-            </figure>
-            <div class="card-body">
-              <h3>Project Two</h3>
-              <p>API‑driven e‑commerce backend with payments, webhooks, and admin panel.</p>
-              <ul class="tags">
-                <li>Node.js</li>
-                <li>Express</li>
-                <li>PostgreSQL</li>
-              </ul>
-              <div class="actions">
-                <a class="btn small" href="#" target="_blank" rel="noopener">Live Demo</a>
-                <a class="btn small secondary" href="#" target="_blank" rel="noopener">Source</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card project">
-            <figure class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <linearGradient id="p3" x1="0" y1="1" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#f59e0b"/>
-                    <stop offset="100%" stop-color="#ef4444"/>
-                  </linearGradient>
-                </defs>
-                <rect width="400" height="240" rx="14" fill="url(#p3)"/>
-                <g fill="white" opacity="0.85">
-                  <circle cx="200" cy="90" r="38"/>
-                  <rect x="80" y="150" width="240" height="14" rx="4"/>
-                  <rect x="110" y="172" width="180" height="10" rx="4"/>
-                </g>
-              </svg>
-            </figure>
-            <div class="card-body">
-              <h3>Project Three</h3>
-              <p>Static site generator theme focused on accessibility and performance.</p>
-              <ul class="tags">
-                <li>11ty</li>
-                <li>Nunjucks</li>
-                <li>SCSS</li>
-              </ul>
-              <div class="actions">
-                <a class="btn small" href="#" target="_blank" rel="noopener">Live Demo</a>
-                <a class="btn small secondary" href="#" target="_blank" rel="noopener">Source</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" class="section">
-      <div class="container">
-        <h2>Skills</h2>
-        <div class="skills-grid">
-          <div class="skillset">
-            <h3>Frontend</h3>
-            <ul class="pill-list">
-              <li>HTML5</li><li>CSS3</li><li>Accessibility (a11y)</li>
-              <li>JavaScript</li><li>TypeScript</li>
-              <li>React</li><li>Next.js</li><li>Vite</li>
-            </ul>
-          </div>
-          <div class="skillset">
-            <h3>Backend</h3>
-            <ul class="pill-list">
-              <li>Node.js</li><li>Express</li><li>NestJS</li>
-              <li>PostgreSQL</li><li>Prisma</li><li>MongoDB</li>
-              <li>REST</li><li>GraphQL</li>
-            </ul>
-          </div>
-          <div class="skillset">
-            <h3>Tools</h3>
-            <ul class="pill-list">
-              <li>Git</li><li>Docker</li><li>CI/CD</li>
-              <li>Jest</li><li>Playwright</li><li>Storybook</li>
-              <li>Figma</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="section alt">
-      <div class="container">
-        <h2>Experience</h2>
-        <ol class="timeline">
-          <li>
-            <div class="time">2023 — Present</div>
-            <div class="details">
-              <h3>Senior Full‑Stack Developer • Freelance</h3>
-              <p>Delivering end‑to‑end web solutions for startups and SMBs: from discovery and design to deployment and maintenance.</p>
-              <ul>
-                <li>Led 5+ projects to production with modern CI/CD pipelines</li>
-                <li>Improved Core Web Vitals, lifting LCP under 2.5s</li>
-                <li>Built reusable component libraries with Storybook</li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <div class="time">2021 — 2023</div>
-            <div class="details">
-              <h3>Software Engineer • Example Co.</h3>
-              <p>Worked on a multi‑tenant SaaS platform, focusing on performance and developer experience.</p>
-              <ul>
-                <li>Migrated legacy codebase to TypeScript</li>
-                <li>Implemented feature flags and A/B testing</li>
-                <li>Reduced bundle size by 35% via code‑splitting</li>
-              </ul>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container contact-grid">
-        <div>
-          <h2>Contact</h2>
-          <p>Interested in working together or just want to say hello? I’d love to hear from you.</p>
-          <ul class="contact-list">
-            <li>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5L4 6h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-              <a href="mailto:you@example.com">you@example.com</a>
-            </li>
-            <li>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.3 22 2 13.7 2 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>
-              <a href="tel:+10000000000">+1 (000) 000‑0000</a>
-            </li>
-            <li>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.9 2a1 1 0 0 0-.95.68l-1.7 5.1H3a1 1 0 1 0 0 2h4.6l-.9 2.7H3a1 1 0 1 0 0 2h2.9l-1.7 5.1a1 1 0 0 0 1.9.64l2-5.74h4.4l-2 5.74a1 1 0 1 0 1.9.64l2.1-6.1H21a1 1 0 1 0 0-2h-4.2l.9-2.7H21a1 1 0 1 0 0-2h-3.1l1.7-5.1a1 1 0 1 0-1.9-.64L15.7 7.78h-4.4l2-5.74A1 1 0 0 0 10.9 2zm3.3 7.78-.9 2.7H8.9l.9-2.7h4.4z"/></svg>
-              Based in Your City, Country
-            </li>
-          </ul>
-        </div>
-
-        <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="_replyto" type="email" autocomplete="email" required>
-          </div>
-          <div class="field">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <input type="hidden" name="_subject" value="Portfolio Contact">
-          <button class="btn" type="submit">Send Message</button>
-          <p class="form-note">This form uses a static form service. Replace the action URL with your own provider or reach me directly at <a href="mailto:you@example.com">you@example.com</a>.</p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Your Name. All rights reserved.</p>
-      <a class="to-top" href="#top">Back to top ↑</a>
     </div>
-  </footer>
 
-  <script src="script.js" defer></script>
+    <!-- About and Skills -->
+    <div class="grid">
+      <section class="col-8">
+        <div class="card">
+          <div class="p">
+            <h2>About</h2>
+            <div id="about" class="prose"></div>
+          </div>
+        </div>
+      </section>
+      <section class="col-4">
+        <div class="card">
+          <div class="p">
+            <h2>Skills</h2>
+            <div id="skills" class="skills-list"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Projects -->
+    <section>
+      <div class="card">
+        <div class="p">
+          <div class="row" style="justify-content: space-between; align-items:center;">
+            <h2>Projects</h2>
+            <span class="helper">Tip: You can edit or add projects via Edit site → Projects</span>
+          </div>
+          <div id="projects" class="projects" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience and Education -->
+    <div class="grid">
+      <section class="col-8">
+        <div class="card">
+          <div class="p">
+            <h2>Experience</h2>
+            <div id="experience" class="timeline"></div>
+          </div>
+        </div>
+      </section>
+      <section class="col-4">
+        <div class="card">
+          <div class="p">
+            <h2>Education</h2>
+            <div id="education" class="timeline"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Contact -->
+    <section>
+      <div class="card">
+        <div class="p">
+          <h2>Contact</h2>
+          <div id="contact" class="row" style="gap:10px; flex-wrap:wrap;"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div id="footer-text">© <span id="year"></span> <span id="footer-name">Your Name</span>. All rights reserved.</div>
+    </div>
+  </div>
+
+  <!-- Editor drawer -->
+  <aside id="editor" class="editor" aria-hidden="true" aria-label="Site editor">
+    <header>
+      <div class="row">
+        <strong>Site editor</strong>
+        <span class="helper">Changes auto-save to your browser</span>
+      </div>
+      <div class="row">
+        <button id="close-editor" class="btn">Close</button>
+      </div>
+    </header>
+    <main id="editorContent"></main>
+    <footer style="padding: 12px 16px; border-top: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between;">
+      <div class="helper">Pro tip: Press E to toggle editor • Esc to close</div>
+      <div class="row">
+        <button id="btn-export" class="btn">Export JSON</button>
+        <label class="btn ghost" for="import-file">Import JSON</label>
+        <input id="import-file" type="file" accept="application/json" style="display:none;">
+        <button id="btn-reset" class="btn" title="Reset to defaults">Reset</button>
+      </div>
+    </footer>
+  </aside>
+  <div class="editor-overlay" id="editorOverlay" aria-hidden="true"></div>
+
+  <!-- Floating Actions -->
+  <div class="fab">
+    <button class="btn primary" id="fab-edit" title="Edit site (E)"><span>✏️ Edit</span></button>
+    <button class="btn ghost" id="fab-theme" title="Toggle light/dark">🌓</button>
+  </div>
+
+  <script>
+    // Simple portfolio site with proper editing options, localStorage persistence, import/export
+
+    const STORAGE_KEY = 'portfolioData.v1';
+    const defaultData = {
+      profile: {
+        name: "Alex Doe",
+        title: "Full-Stack Developer",
+        location: "Remote • UTC-5",
+        email: "alex@example.com",
+        phone: "",
+        website: "https://alex.example.com",
+        socials: {
+          github: "https://github.com/alex",
+          linkedin: "https://www.linkedin.com/in/alex",
+          twitter: ""
+        },
+        avatarUrl: "" // data URL or http(s)
+      },
+      about: "I’m a full‑stack developer with a passion for building delightful products. I enjoy turning complex problems into simple, beautiful and intuitive solutions.\n\nMy current focus is on TypeScript, React, Node.js, and cloud native architectures.",
+      skills: [
+        { name: "JavaScript / TypeScript", level: 90 },
+        { name: "React / Next.js", level: 88 },
+        { name: "Node.js / Express", level: 85 },
+        { name: "CSS / Tailwind", level: 80 },
+        { name: "PostgreSQL", level: 75 }
+      ],
+      projects: [
+        {
+          title: "TaskForge",
+          description: "Open-source task management app with offline-first sync and real-time collaboration.",
+          tags: ["React", "PWA", "WebSocket"],
+          link: "https://taskforge.app",
+          repo: "https://github.com/alex/taskforge",
+          image: ""
+        },
+        {
+          title: "ImageMind",
+          description: "AI-powered image restoration and enhancement pipeline.",
+          tags: ["Python", "FastAPI", "ML"],
+          link: "",
+          repo: "https://github.com/alex/imagemind",
+          image: ""
+        }
+      ],
+      experience: [
+        {
+          company: "Acme Corp",
+          role: "Senior Software Engineer",
+          period: "2022 — Present",
+          summary: "Leading the web platform team building scalable, component-driven UIs.",
+          achievements: [
+            "Shipped a design system used across 5 product lines",
+            "Reduced bundle size by 38% with module federation"
+          ]
+        },
+        {
+          company: "Globex",
+          role: "Software Engineer",
+          period: "2019 — 2022",
+          summary: "Full-stack engineer on customer success tooling.",
+          achievements: [
+            "Built multi-tenant analytics platform",
+            "Improved onboarding conversion by 22%"
+          ]
+        }
+      ],
+      education: [
+        { school: "State University", degree: "B.S. Computer Science", period: "2015 — 2019" }
+      ],
+      theme: {
+        mode: "auto", // "light" | "dark" | "auto"
+        primary: "#6366f1",
+        accent: "#22d3ee",
+        fontScale: 1
+      },
+      actions: {
+        contactLink: "", // mailto: or URL; if empty, will use email
+        resumeUrl: ""    // URL to a PDF resume
+      }
+    };
+
+    const state = {
+      data: loadData(),
+      open: false
+    };
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(defaultData);
+        const parsed = JSON.parse(raw);
+        // Merge with defaults in case of updates
+        return deepMerge(structuredClone(defaultData), parsed);
+      } catch {
+        return structuredClone(defaultData);
+      }
+    }
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+      } catch (e) {
+        console.warn("Save failed:", e);
+      }
+    }
+    function deepMerge(base, ext) {
+      if (Array.isArray(base) && Array.isArray(ext)) return ext.slice();
+      if (typeof base === 'object' && base !== null && typeof ext === 'object' && ext !== null) {
+        const out = { ...base };
+        for (const k of Object.keys(ext)) {
+          out[k] = deepMerge(base[k], ext[k]);
+        }
+        return out;
+      }
+      return ext === undefined ? base : ext;
+    }
+
+    // Rendering
+    function render() {
+      const { profile, about, skills, projects, experience, education, theme, actions } = state.data;
+
+      // Brand and footer
+      el('#brand-name').textContent = profile?.name ? `${profile.name} — Portfolio` : 'My Portfolio';
+      el('#year').textContent = new Date().getFullYear();
+      el('#footer-name').textContent = profile.name || 'Your Name';
+
+      // Hero
+      const avatar = el('#hero-avatar');
+      avatar.innerHTML = '';
+      if (profile.avatarUrl) {
+        const img = new Image();
+        img.alt = `${profile.name || 'Profile'} avatar`;
+        img.src = profile.avatarUrl;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        avatar.appendChild(img);
+      } else {
+        avatar.textContent = initials(profile.name || 'NA');
+      }
+      el('#hero-name').textContent = profile.name || 'Your Name';
+      el('#hero-title').textContent = [profile.title, profile.location].filter(Boolean).join(' • ');
+
+      // Socials row
+      const socials = el('#hero-socials');
+      socials.innerHTML = '';
+      const socialItems = [
+        { key: 'github', label: 'GitHub' },
+        { key: 'linkedin', label: 'LinkedIn' },
+        { key: 'twitter', label: 'Twitter' },
+        { key: 'website', label: 'Website' },
+      ];
+      for (const s of socialItems) {
+        const url = normalizeUrl(profile.socials?.[s.key] || (s.key === 'website' ? profile.website : ''));
+        if (!url) continue;
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.className = 'chip';
+        a.textContent = s.label;
+        socials.appendChild(a);
+      }
+
+      // CTAs
+      const contactHref = actions.contactLink || (profile.email ? `mailto:${profile.email}` : '#');
+      const resumeHref = actions.resumeUrl || '#';
+      setHref('#cta-contact', contactHref);
+      setHref('#cta-resume', resumeHref);
+      setHref('#download-resume', resumeHref);
+      el('#cta-resume').textContent = actions.resumeUrl ? 'Download résumé' : 'Résumé (add in editor)';
+      el('#download-resume').textContent = actions.resumeUrl ? 'Print / Save PDF' : 'Print this page';
+
+      // About
+      el('#about').innerHTML = toHtml(about || '');
+
+      // Skills
+      const skillsRoot = el('#skills');
+      skillsRoot.innerHTML = '';
+      (skills || []).forEach(s => {
+        const item = document.createElement('div');
+        item.className = 'skill';
+        item.innerHTML = `
+          <div class="row" style="justify-content:space-between;">
+            <strong>${escapeHtml(s.name || 'Skill')}</strong>
+            <span class="muted">${s.level ?? 0}%</span>
+          </div>
+          <div class="meter"><span style="width:${clampNum(s.level,0,100)}%"></span></div>
+        `;
+        skillsRoot.appendChild(item);
+      });
+
+      // Projects
+      const projectsRoot = el('#projects');
+      projectsRoot.innerHTML = '';
+      (projects || []).forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        const media = document.createElement('div');
+        media.className = 'project-media';
+        if (p.image) {
+          const img = new Image();
+          img.src = p.image;
+          img.alt = `${p.title || 'Project'} cover`;
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          media.appendChild(img);
+        } else {
+          media.textContent = initials(p.title || 'P');
+        }
+        const body = document.createElement('div');
+        body.className = 'project-body';
+        const title = document.createElement('div');
+        title.innerHTML = `<strong>${escapeHtml(p.title || 'Untitled')}</strong>`;
+        const desc = document.createElement('div');
+        desc.className = 'muted';
+        desc.textContent = p.description || '';
+        const tags = document.createElement('div');
+        tags.className = 'tags';
+        (p.tags || []).forEach(t => {
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.textContent = t;
+          tags.appendChild(chip);
+        });
+        const links = document.createElement('div');
+        links.className = 'row';
+        const live = normalizeUrl(p.link);
+        const repo = normalizeUrl(p.repo);
+        if (live) {
+          const a = document.createElement('a');
+          a.href = live; a.target = "_blank"; a.rel = "noopener";
+          a.className = 'btn ghost';
+          a.textContent = 'Live';
+          links.appendChild(a);
+        }
+        if (repo) {
+          const a = document.createElement('a');
+          a.href = repo; a.target = "_blank"; a.rel = "noopener";
+          a.className = 'btn ghost';
+          a.textContent = 'Code';
+          links.appendChild(a);
+        }
+        body.appendChild(title);
+        body.appendChild(desc);
+        if ((p.tags || []).length) body.appendChild(tags);
+        if (links.children.length) body.appendChild(links);
+        card.appendChild(media);
+        card.appendChild(body);
+        projectsRoot.appendChild(card);
+      });
+
+      // Experience
+      const expRoot = el('#experience');
+      expRoot.innerHTML = '';
+      (experience || []).forEach(e => {
+        const item = document.createElement('div');
+        item.className = 'experience-item';
+        item.innerHTML = `
+          <div class="exp-head">
+            <div><strong>${escapeHtml(e.role || '')}</strong> <span class="muted">· ${escapeHtml(e.company || '')}</span></div>
+            <div class="muted">${escapeHtml(e.period || '')}</div>
+          </div>
+          <div class="prose" style="margin-top:6px;">
+            <p>${escapeHtml(e.summary || '')}</p>
+            ${Array.isArray(e.achievements) && e.achievements.length ? `
+              <ul style="margin-top:8px; padding-left: 18px;">
+                ${e.achievements.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+              </ul>
+            ` : ''}
+          </div>
+        `;
+        expRoot.appendChild(item);
+      });
+
+      // Education
+      const eduRoot = el('#education');
+      eduRoot.innerHTML = '';
+      (education || []).forEach(ed => {
+        const item = document.createElement('div');
+        item.className = 'experience-item';
+        item.innerHTML = `
+          <div class="exp-head">
+            <div><strong>${escapeHtml(ed.degree || '')}</strong></div>
+            <div class="muted">${escapeHtml(ed.period || '')}</div>
+          </div>
+          <div class="muted">${escapeHtml(ed.school || '')}</div>
+        `;
+        eduRoot.appendChild(item);
+      });
+
+      // Contact
+      const contactRoot = el('#contact');
+      contactRoot.innerHTML = '';
+      const contactChips = [
+        profile.email ? { href: `mailto:${profile.email}`, label: profile.email } : null,
+        profile.phone ? { href: `tel:${profile.phone}`, label: profile.phone } : null,
+        profile.website ? { href: normalizeUrl(profile.website), label: profile.website } : null,
+        profile.location ? { href: '#', label: profile.location } : null
+      ].filter(Boolean);
+      for (const c of contactChips) {
+        const a = document.createElement('a');
+        a.href = c.href || '#'; a.className = 'chip'; a.textContent = c.label;
+        if (c.href?.startsWith('http')) { a.target = "_blank"; a.rel = "noopener"; }
+        contactRoot.appendChild(a);
+      }
+
+      // Apply theme
+      applyTheme(theme);
+    }
+
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      const mode = theme?.mode || 'auto';
+      root.setAttribute('data-theme', mode);
+      root.style.setProperty('--primary', theme?.primary || defaultData.theme.primary);
+      root.style.setProperty('--accent', theme?.accent || defaultData.theme.accent);
+      root.style.setProperty('--font-scale', String(theme?.fontScale || 1));
+
+      // Update meta theme-color for mobile
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) metaTheme.setAttribute('content', theme?.primary || defaultData.theme.primary);
+    }
+
+    function setHref(sel, href) {
+      const a = el(sel);
+      if (!a) return;
+      if (href && href !== '#') {
+        a.href = href; a.target = href.startsWith('http') ? '_blank' : '_self';
+        a.rel = href.startsWith('http') ? 'noopener' : '';
+      } else {
+        a.href = '#';
+        a.removeAttribute('target'); a.removeAttribute('rel');
+      }
+    }
+
+    // Editor builder
+    function buildEditor() {
+      const d = state.data;
+      const root = el('#editorContent');
+      root.innerHTML = `
+        <details class="panel" open>
+          <summary>Profile</summary>
+          <div class="panel-body">
+            <div class="grid-2">
+              <div class="field">
+                <label for="edit-name">Name</label>
+                <input id="edit-name" type="text" value="${escapeAttr(d.profile.name)}" placeholder="Your name">
+              </div>
+              <div class="field">
+                <label for="edit-title">Title</label>
+                <input id="edit-title" type="text" value="${escapeAttr(d.profile.title)}" placeholder="e.g. Full-Stack Developer">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="edit-location">Location</label>
+                <input id="edit-location" type="text" value="${escapeAttr(d.profile.location || '')}" placeholder="City, Country">
+              </div>
+              <div class="field">
+                <label for="edit-website">Website</label>
+                <input id="edit-website" type="url" value="${escapeAttr(d.profile.website || '')}" placeholder="https://...">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="edit-email">Email</label>
+                <input id="edit-email" type="email" value="${escapeAttr(d.profile.email || '')}" placeholder="you@example.com">
+              </div>
+              <div class="field">
+                <label for="edit-phone">Phone</label>
+                <input id="edit-phone" type="tel" value="${escapeAttr(d.profile.phone || '')}" placeholder="+1 ...">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="edit-github">GitHub</label>
+                <input id="edit-github" type="url" value="${escapeAttr(d.profile.socials.github || '')}" placeholder="https://github.com/username">
+              </div>
+              <div class="field">
+                <label for="edit-linkedin">LinkedIn</label>
+                <input id="edit-linkedin" type="url" value="${escapeAttr(d.profile.socials.linkedin || '')}" placeholder="https://linkedin.com/in/...">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="edit-twitter">Twitter</label>
+                <input id="edit-twitter" type="url" value="${escapeAttr(d.profile.socials.twitter || '')}" placeholder="https://twitter.com/...">
+              </div>
+              <div class="field">
+                <label>Avatar</label>
+                <div class="row">
+                  <input id="edit-avatar-file" type="file" accept="image/*">
+                  <button id="btn-avatar-url" class="btn ghost">Use image URL</button>
+                  ${d.profile.avatarUrl ? '<button id="btn-avatar-clear" class="btn">Remove</button>' : ''}
+                </div>
+                <div class="helper">Tip: Upload an image or paste a link. Recommended 512×512+</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel" open>
+          <summary>About</summary>
+          <div class="panel-body">
+            <div class="field">
+              <label for="edit-about">About you</label>
+              <textarea id="edit-about" placeholder="Write a short bio...">${escapeHtml(d.about || '')}</textarea>
+              <div class="helper">Supports paragraphs. Basic markdown (line breaks) are preserved.</div>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel" open>
+          <summary>Skills</summary>
+          <div class="panel-body">
+            <div id="skills-list" class="list">
+              ${d.skills.map((s, i) => `
+                <div class="list-item" data-skill="${i}">
+                  <div class="grid-2">
+                    <div class="field">
+                      <label>Skill</label>
+                      <input type="text" id="skill-${i}-name" value="${escapeAttr(s.name)}" placeholder="Skill name">
+                    </div>
+                    <div class="field">
+                      <label>Level: <span id="skill-${i}-level-value">${s.level}</span>%</label>
+                      <input type="range" id="skill-${i}-level" min="0" max="100" step="1" value="${clampNum(s.level,0,100)}">
+                    </div>
+                  </div>
+                  <div class="row controls">
+                    <button class="btn ghost" id="skill-${i}-up">↑</button>
+                    <button class="btn ghost" id="skill-${i}-down">↓</button>
+                    <button class="btn" id="skill-${i}-delete">Delete</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+              <button id="skill-add" class="btn primary">Add skill</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel" open>
+          <summary>Projects</summary>
+          <div class="panel-body">
+            <div id="projects-list" class="list">
+              ${d.projects.map((p, i) => `
+                <div class="list-item" data-project="${i}">
+                  <div class="field">
+                    <label>Title</label>
+                    <input type="text" id="project-${i}-title" value="${escapeAttr(p.title)}" placeholder="Project title">
+                  </div>
+                  <div class="field">
+                    <label>Description</label>
+                    <textarea id="project-${i}-desc" placeholder="Short description">${escapeHtml(p.description || '')}</textarea>
+                  </div>
+                  <div class="grid-2">
+                    <div class="field">
+                      <label>Tags (comma separated)</label>
+                      <input type="text" id="project-${i}-tags" value="${escapeAttr((p.tags || []).join(', '))}" placeholder="React, Node, ...">
+                    </div>
+                    <div class="field">
+                      <label>Cover image</label>
+                      <div class="row">
+                        <input id="project-${i}-file" type="file" accept="image/*">
+                        <button class="btn ghost" id="project-${i}-img-url">Use URL</button>
+                        ${p.image ? `<button class="btn" id="project-${i}-img-clear">Remove</button>` : ''}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid-2">
+                    <div class="field">
+                      <label>Live link</label>
+                      <input type="url" id="project-${i}-link" value="${escapeAttr(p.link || '')}" placeholder="https://...">
+                    </div>
+                    <div class="field">
+                      <label>Repo link</label>
+                      <input type="url" id="project-${i}-repo" value="${escapeAttr(p.repo || '')}" placeholder="https://github.com/...">
+                    </div>
+                  </div>
+                  <div class="row controls">
+                    <button class="btn ghost" id="project-${i}-up">↑</button>
+                    <button class="btn ghost" id="project-${i}-down">↓</button>
+                    <button class="btn" id="project-${i}-delete">Delete</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+              <button id="project-add" class="btn primary">Add project</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel">
+          <summary>Experience</summary>
+          <div class="panel-body">
+            <div id="exp-list" class="list">
+              ${d.experience.map((e, i) => `
+                <div class="list-item" data-exp="${i}">
+                  <div class="grid-2">
+                    <div class="field">
+                      <label>Role</label>
+                      <input type="text" id="exp-${i}-role" value="${escapeAttr(e.role || '')}" placeholder="Job title">
+                    </div>
+                    <div class="field">
+                      <label>Company</label>
+                      <input type="text" id="exp-${i}-company" value="${escapeAttr(e.company || '')}" placeholder="Company">
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>Period</label>
+                    <input type="text" id="exp-${i}-period" value="${escapeAttr(e.period || '')}" placeholder="YYYY — YYYY">
+                  </div>
+                  <div class="field">
+                    <label>Summary</label>
+                    <textarea id="exp-${i}-summary" placeholder="Short summary">${escapeHtml(e.summary || '')}</textarea>
+                  </div>
+                  <div class="field">
+                    <label>Achievements (one per line)</label>
+                    <textarea id="exp-${i}-achievements" placeholder="- Did X\n- Improved Y">${escapeHtml((e.achievements || []).join('\n'))}</textarea>
+                  </div>
+                  <div class="row controls">
+                    <button class="btn ghost" id="exp-${i}-up">↑</button>
+                    <button class="btn ghost" id="exp-${i}-down">↓</button>
+                    <button class="btn" id="exp-${i}-delete">Delete</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="row">
+              <button id="exp-add" class="btn primary">Add experience</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel">
+          <summary>Education</summary>
+          <div class="panel-body">
+            <div id="edu-list" class="list">
+              ${d.education.map((e, i) => `
+                <div class="list-item" data-edu="${i}">
+                  <div class="field">
+                    <label>Degree</label>
+                    <input type="text" id="edu-${i}-degree" value="${escapeAttr(e.degree || '')}" placeholder="Degree">
+                  </div>
+                  <div class="field">
+                    <label>School</label>
+                    <input type="text" id="edu-${i}-school" value="${escapeAttr(e.school || '')}" placeholder="School">
+                  </div>
+                  <div class="field">
+                    <label>Period</label>
+                    <input type="text" id="edu-${i}-period" value="${escapeAttr(e.period || '')}" placeholder="YYYY — YYYY">
+                  </div>
+                  <div class="row controls">
+                    <button class="btn ghost" id="edu-${i}-up">↑</button>
+                    <button class="btn ghost" id="edu-${i}-down">↓</button>
+                    <button class="btn" id="edu-${i}-delete">Delete</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="row">
+              <button id="edu-add" class="btn primary">Add education</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel">
+          <summary>Theme</summary>
+          <div class="panel-body">
+            <div class="grid-2">
+              <div class="field">
+                <label for="edit-mode">Mode</label>
+                <select id="edit-mode">
+                  <option value="auto" ${d.theme.mode === 'auto' ? 'selected' : ''}>Auto (match system)</option>
+                  <option value="light" ${d.theme.mode === 'light' ? 'selected' : ''}>Light</option>
+                  <option value="dark" ${d.theme.mode === 'dark' ? 'selected' : ''}>Dark</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="edit-fontScale">Font size: <span id="fontScaleValue">${d.theme.fontScale}</span>x</label>
+                <input id="edit-fontScale" type="range" min="0.85" max="1.25" step="0.01" value="${d.theme.fontScale}">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="edit-primary">Primary color</label>
+                <input id="edit-primary" type="color" value="${d.theme.primary}">
+              </div>
+              <div class="field">
+                <label for="edit-accent">Accent color</label>
+                <input id="edit-accent" type="color" value="${d.theme.accent}">
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel">
+          <summary>Links & Actions</summary>
+          <div class="panel-body">
+            <div class="field">
+              <label for="edit-contactLink">Primary contact link</label>
+              <input id="edit-contactLink" type="url" value="${escapeAttr(d.actions.contactLink || '')}" placeholder="mailto:you@example.com or https://...">
+              <div class="helper">If empty, your email will be used for the Contact buttons.</div>
+            </div>
+            <div class="field">
+              <label for="edit-resumeUrl">Resume URL (PDF)</label>
+              <input id="edit-resumeUrl" type="url" value="${escapeAttr(d.actions.resumeUrl || '')}" placeholder="https://.../resume.pdf">
+              <div class="helper">Add a direct link to your PDF résumé to enable the Download résumé button.</div>
+            </div>
+          </div>
+        </details>
+      `;
+
+      // Wire profile inputs
+      onInput('#edit-name', v => set(d => d.profile.name = v));
+      onInput('#edit-title', v => set(d => d.profile.title = v));
+      onInput('#edit-location', v => set(d => d.profile.location = v));
+      onInput('#edit-website', v => set(d => d.profile.website = v));
+      onInput('#edit-email', v => set(d => d.profile.email = v));
+      onInput('#edit-phone', v => set(d => d.profile.phone = v));
+      onInput('#edit-github', v => set(d => d.profile.socials.github = v));
+      onInput('#edit-linkedin', v => set(d => d.profile.socials.linkedin = v));
+      onInput('#edit-twitter', v => set(d => d.profile.socials.twitter = v));
+      const avatarFile = el('#edit-avatar-file');
+      if (avatarFile) avatarFile.addEventListener('change', async ev => {
+        const file = ev.target.files?.[0];
+        if (!file) return;
+        const dataUrl = await fileToDataUrl(file);
+        set(d => d.profile.avatarUrl = dataUrl);
+        ev.target.value = '';
+      });
+      const avatarUrlBtn = el('#btn-avatar-url');
+      if (avatarUrlBtn) avatarUrlBtn.addEventListener('click', () => {
+        const url = window.prompt('Paste image URL:');
+        if (!url) return;
+        set(d => d.profile.avatarUrl = url.trim());
+      });
+      const avatarClear = el('#btn-avatar-clear');
+      if (avatarClear) avatarClear.addEventListener('click', () => set(d => d.profile.avatarUrl = ''));
+
+      // About
+      onInput('#edit-about', v => set(d => d.about = v), true);
+
+      // Skills
+      const addSkill = el('#skill-add');
+      if (addSkill) addSkill.addEventListener('click', () => {
+        set(d => d.skills.push({ name: "New skill", level: 50 }));
+      });
+      (state.data.skills || []).forEach((s, i) => {
+        onInput(`#skill-${i}-name`, v => set(d => d.skills[i].name = v));
+        const levelSlider = el(`#skill-${i}-level`);
+        const levelValue = el(`#skill-${i}-level-value`);
+        if (levelSlider) {
+          levelSlider.addEventListener('input', e => {
+            const val = Number(e.target.value);
+            if (levelValue) levelValue.textContent = String(val);
+            set(d => d.skills[i].level = val);
+          });
+        }
+        onClick(`#skill-${i}-up`, () => { moveItem(state.data.skills, i, i-1); set(d => d.skills = state.data.skills); });
+        onClick(`#skill-${i}-down`, () => { moveItem(state.data.skills, i, i+1); set(d => d.skills = state.data.skills); });
+        onClick(`#skill-${i}-delete`, () => {
+          if (confirm('Remove this skill?')) set(d => d.skills.splice(i,1));
+        });
+      });
+
+      // Projects
+      onClick('#project-add', () => {
+        set(d => d.projects.push({ title: "New project", description: "", tags: [], link: "", repo: "", image: "" }));
+      });
+      (state.data.projects || []).forEach((p, i) => {
+        onInput(`#project-${i}-title`, v => set(d => d.projects[i].title = v));
+        onInput(`#project-${i}-desc`, v => set(d => d.projects[i].description = v), true);
+        onInput(`#project-${i}-tags`, v => {
+          const tags = v.split(',').map(t => t.trim()).filter(Boolean);
+          set(d => d.projects[i].tags = tags);
+        });
+        onInput(`#project-${i}-link`, v => set(d => d.projects[i].link = v));
+        onInput(`#project-${i}-repo`, v => set(d => d.projects[i].repo = v));
+        const file = el(`#project-${i}-file`);
+        if (file) file.addEventListener('change', async ev => {
+          const f = ev.target.files?.[0];
+          if (!f) return;
+          const dataUrl = await fileToDataUrl(f);
+          set(d => d.projects[i].image = dataUrl);
+          ev.target.value = '';
+        });
+        onClick(`#project-${i}-img-url`, () => {
+          const url = window.prompt('Paste image URL:');
+          if (!url) return;
+          set(d => d.projects[i].image = url.trim());
+        });
+        const clear = el(`#project-${i}-img-clear`);
+        if (clear) clear.addEventListener('click', () => set(d => d.projects[i].image = ''));
+        onClick(`#project-${i}-up`, () => { moveItem(state.data.projects, i, i-1); set(d => d.projects = state.data.projects); });
+        onClick(`#project-${i}-down`, () => { moveItem(state.data.projects, i, i+1); set(d => d.projects = state.data.projects); });
+        onClick(`#project-${i}-delete`, () => {
+          if (confirm('Remove this project?')) set(d => d.projects.splice(i,1));
+        });
+      });
+
+      // Experience
+      onClick('#exp-add', () => {
+        set(d => d.experience.push({ company: "", role: "", period: "", summary: "", achievements: [] }));
+      });
+      (state.data.experience || []).forEach((e, i) => {
+        onInput(`#exp-${i}-role`, v => set(d => d.experience[i].role = v));
+        onInput(`#exp-${i}-company`, v => set(d => d.experience[i].company = v));
+        onInput(`#exp-${i}-period`, v => set(d => d.experience[i].period = v));
+        onInput(`#exp-${i}-summary`, v => set(d => d.experience[i].summary = v), true);
+        onInput(`#exp-${i}-achievements`, v => {
+          set(d => d.experience[i].achievements = v.split('\n').map(x => x.replace(/^-+\s*/, '').trim()).filter(Boolean));
+        }, true);
+        onClick(`#exp-${i}-up`, () => { moveItem(state.data.experience, i, i-1); set(d => d.experience = state.data.experience); });
+        onClick(`#exp-${i}-down`, () => { moveItem(state.data.experience, i, i+1); set(d => d.experience = state.data.experience); });
+        onClick(`#exp-${i}-delete`, () => {
+          if (confirm('Remove this experience?')) set(d => d.experience.splice(i,1));
+        });
+      });
+
+      // Education
+      onClick('#edu-add', () => {
+        set(d => d.education.push({ school: "", degree: "", period: "" }));
+      });
+      (state.data.education || []).forEach((e, i) => {
+        onInput(`#edu-${i}-degree`, v => set(d => d.education[i].degree = v));
+        onInput(`#edu-${i}-school`, v => set(d => d.education[i].school = v));
+        onInput(`#edu-${i}-period`, v => set(d => d.education[i].period = v));
+        onClick(`#edu-${i}-up`, () => { moveItem(state.data.education, i, i-1); set(d => d.education = state.data.education); });
+        onClick(`#edu-${i}-down`, () => { moveItem(state.data.education, i, i+1); set(d => d.education = state.data.education); });
+        onClick(`#edu-${i}-delete`, () => {
+          if (confirm('Remove this education item?')) set(d => d.education.splice(i,1));
+        });
+      });
+
+      // Theme
+      onInput('#edit-mode', v => set(d => d.theme.mode = v));
+      const fs = el('#edit-fontScale');
+      const fsv = el('#fontScaleValue');
+      if (fs) fs.addEventListener('input', e => {
+        const val = Number(e.target.value);
+        if (fsv) fsv.textContent = String(val.toFixed(2)).replace(/0+$/,'').replace(/\.$/,'');
+        set(d => d.theme.fontScale = val);
+      });
+      onInput('#edit-primary', v => set(d => d.theme.primary = v));
+      onInput('#edit-accent', v => set(d => d.theme.accent = v));
+
+      // Actions
+      onInput('#edit-contactLink', v => set(d => d.actions.contactLink = v));
+      onInput('#edit-resumeUrl', v => set(d => d.actions.resumeUrl = v));
+    }
+
+    // Utilities
+    function el(sel, root = document) { return root.querySelector(sel); }
+    function onInput(sel, fn, isTextArea = false) {
+      const n = el(sel); if (!n) return;
+      const handler = e => fn(e.target.value);
+      n.addEventListener('input', handler);
+      if (!isTextArea) n.addEventListener('change', handler);
+    }
+    function onClick(sel, fn) {
+      const n = el(sel); if (!n) return;
+      n.addEventListener('click', e => { e.preventDefault(); fn(e); });
+    }
+    function set(mutator) {
+      mutator(state.data);
+      saveData();
+      render();
+      buildEditor(); // keep editor in sync
+    }
+    function initials(name) {
+      return name.split(/\s+/).slice(0,2).map(p => p[0]?.toUpperCase() || '').join('');
+    }
+    function clampNum(n, min, max) {
+      n = Number(n ?? 0);
+      return isFinite(n) ? Math.max(min, Math.min(max, n)) : min;
+    }
+    function normalizeUrl(u) {
+      if (!u) return '';
+      if (u.startsWith('http://') || u.startsWith('https://') || u.startsWith('mailto:') || u.startsWith('tel:')) return u;
+      return `https://${u}`;
+    }
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+    function escapeAttr(str) { return escapeHtml(str).replace(/"/g, '&quot;'); }
+    function toHtml(text) {
+      // Basic paragraph renderer: split by blank lines and wrap in <p>
+      const parts = String(text || '').split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
+      return parts.map(p => `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`).join('');
+    }
+    function moveItem(arr, from, to) {
+      if (to < 0 || to >= arr.length) return;
+      const [it] = arr.splice(from, 1);
+      arr.splice(to, 0, it);
+    }
+    function fileToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result);
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+    }
+
+    // Editor open/close
+    function openEditor() {
+      state.open = true;
+      document.body.style.overflow = 'hidden';
+      const ed = el('#editor'); ed.classList.add('open'); ed.setAttribute('aria-hidden', 'false');
+      el('#editorOverlay').setAttribute('aria-hidden', 'false');
+      buildEditor();
+    }
+    function closeEditor() {
+      state.open = false;
+      document.body.style.overflow = '';
+      const ed = el('#editor'); ed.classList.remove('open'); ed.setAttribute('aria-hidden', 'true');
+      el('#editorOverlay').setAttribute('aria-hidden', 'true');
+    }
+
+    // Global actions
+    onClick('#open-editor', openEditor);
+    onClick('#fab-edit', openEditor);
+    onClick('#close-editor', closeEditor);
+    onClick('#editorOverlay', closeEditor);
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 'e' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        e.preventDefault();
+        state.open ? closeEditor() : openEditor();
+      }
+      if (e.key === 'Escape' && state.open) closeEditor();
+    });
+
+    // Theme quick toggles
+    function quickToggleTheme() {
+      const mode = state.data.theme.mode;
+      const next = mode === 'auto' ? 'light' : mode === 'light' ? 'dark' : 'auto';
+      set(d => d.theme.mode = next);
+    }
+    onClick('#quick-theme', quickToggleTheme);
+    onClick('#fab-theme', quickToggleTheme);
+
+    // Export / Import / Reset
+    onClick('#btn-export', () => {
+      const blob = new Blob([JSON.stringify(state.data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'portfolio.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    });
+    el('#import-file').addEventListener('change', async e => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const obj = JSON.parse(text);
+        if (!obj || typeof obj !== 'object') throw new Error('Invalid JSON');
+        if (!confirm('Import this JSON and replace current content?')) return;
+        state.data = deepMerge(structuredClone(defaultData), obj);
+        saveData();
+        render();
+        buildEditor();
+        alert('Import successful.');
+      } catch (err) {
+        alert('Import failed: ' + err.message);
+      } finally {
+        e.target.value = '';
+      }
+    });
+    onClick('#btn-reset', () => {
+      if (!confirm('Reset all content to defaults? This cannot be undone.')) return;
+      state.data = structuredClone(defaultData);
+      saveData();
+      render();
+      buildEditor();
+    });
+
+    // Print
+    onClick('#download-resume', e => {
+      const url = state.data.actions.resumeUrl;
+      if (!url) {
+        // No resume uploaded, default to printing this page
+        e.preventDefault();
+        window.print();
+      }
+    });
+
+    // Initial render
+    render();
+
+  </script>
 </body>
 </html>
