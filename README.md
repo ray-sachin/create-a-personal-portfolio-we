@@ -1,75 +1,71 @@
-# Personal Portfolio Website (with in-browser Editor)
+# Personal Portfolio — Editable Template
 
-A modern, single-file personal portfolio website with built‑in editing tools. All content can be updated directly in the browser and is saved to localStorage. You can export/import your data as JSON or reset to defaults at any time.
+This is a single-file personal portfolio site you can edit right in the browser. It keeps the original layout and placeholders, but adds proper editing options to change text, links, images, skills, and theme color. Your edits are saved to your browser (localStorage), and you can export or import your content as JSON.
 
-No build step required. Just open index.html.
+## Quick start
+- Open index.html in any modern browser.
+- Click the purple Edit button (bottom-right) to enter edit mode.
+- Click any highlighted content to edit it:
+  - Text: type directly.
+  - Links (e.g., Resume, GitHub): click to change URL.
+  - Email: click to change your email; all email links update automatically.
+  - Images (avatar or project covers): click to upload an image or paste an image URL.
+  - Skills: use + Add skill to add chips; click the × on a chip to remove; type to rename.
+- Use the top Edit bar to Save, Export JSON, Import JSON, Reset, or Exit edit mode.
+- Changes persist automatically when you Save.
 
-Features
-- Clean, responsive layout with sections for Hero, About, Skills, Projects, Experience, Education, and Contact
-- Proper editing options via a slide-in editor panel
-  - Update profile, socials, avatar (upload file or use image URL)
-  - Edit About text
-  - Manage lists: add, remove, reorder Skills, Projects, Experience, Education
-  - Upload cover images for projects (file or URL)
-  - Customize theme (light/dark/auto, colors, font scale)
-  - Configure primary contact link and résumé URL
-- Auto-save to localStorage
-- Export/import JSON data
-- Print-friendly styling for easy PDF export
+## Files
+- index.html — Full site, including styles and scripts.
+- README.md — This guide.
 
-Quick start
-1. Download this repository or copy index.html and open it in your browser.
-2. Click Edit site or press E to open the editor.
-3. Update your details. Changes save automatically.
-4. Export your data as JSON to back it up or move to another device.
-5. If you have a hosted PDF resume, add its URL in Edit site → Links & Actions to enable the Download résumé buttons.
+## Editing guide
 
-Editing options overview
-- Profile
-  - Name, title, location
-  - Email, phone, website
-  - Socials: GitHub, LinkedIn, Twitter
-  - Avatar: upload an image or use a direct image URL
-- About
-  - Write your bio; paragraphs and line-breaks are preserved
-- Skills
-  - Add skill, set level via slider, reorder (↑/↓), and delete
-- Projects
-  - Title, description, tags (comma separated)
-  - Live link and repository link
-  - Cover image via file upload or URL
-  - Reorder and delete
-- Experience
-  - Role, company, period, summary, achievements (one per line)
-  - Reorder and delete
-- Education
-  - Degree, school, period
-  - Reorder and delete
-- Theme
-  - Mode: Light, Dark, or Auto (sync with OS)
-  - Primary and accent colors
-  - Global font size scaling
-- Links & Actions
-  - Primary contact link (leave blank to use your email)
-  - Résumé URL (PDF)
+Elements you can edit inline are outlined in edit mode:
+- Name, role, tagline, bio
+- Resume link URL
+- Email address
+- About text and location
+- Social links (GitHub, LinkedIn, Twitter)
+- Skills list (add/remove/rename)
+- Project cards:
+  - Cover image
+  - Title, description, tags
+  - Live and Code links
 
-Data persistence
-- Your edits are saved to your browser’s localStorage under the key portfolioData.v1.
-- Use the Export JSON button in the editor footer to download a backup.
-- To restore or migrate, click Import JSON and select your backup file.
-- Reset returns the site to its default template content.
+Theme:
+- The theme color picker in the Edit bar updates the site’s primary color.
+- Saved with your data and applied on load.
 
-Keyboard shortcuts
-- E: Toggle editor
-- Esc: Close editor
+Images:
+- Click an image in edit mode to choose between:
+  - Upload a file (saved as a data URL so it persists in your browser/export), or
+  - Enter an image URL.
 
-Print/saving to PDF
-- If you don’t have a résumé URL configured, the “Print / Save PDF” button will open the browser’s print dialog for this page.
-- Use your browser’s “Save as PDF” to generate a quick resume from the on-page content (print styles included).
+Links:
+- Click a link in edit mode to set its href. For email links, click and enter your email; mailto links update accordingly.
 
-Notes
-- All functionality is implemented in a single HTML file for portability. You can split CSS/JS into separate files if you prefer.
-- File uploads (avatar and project images) are stored as base64 data URLs inside localStorage; large images can increase storage usage. Prefer optimized images or hosted URLs where possible.
+Skills:
+- Click + Add skill to add a new chip.
+- In edit mode, each chip has an × to remove it.
+- You can type directly on a chip to rename it.
 
-License
-- MIT — Feel free to use, modify, and share.
+Save and portability:
+- Save: Stores your content in localStorage on this device/browser.
+- Export JSON: Downloads a portfolio-data.json you can keep in version control or send to another device.
+- Import JSON: Loads content from a previously exported JSON file.
+- Reset: Restores the original template defaults and clears saved data.
+
+## Deployment
+Because it’s a single HTML file:
+- GitHub Pages: commit and push; set the repository to publish from the main branch. Visit https://<user>.github.io/<repo>/index.html
+- Netlify/Vercel: drag-and-drop deploy the index.html.
+- Static hosting: upload index.html to any static host.
+
+## Notes
+- No external dependencies; works offline.
+- Tested on modern Chromium, Firefox, and Safari browsers.
+- All content is stored locally until you export JSON. If you clear site data, your local edits are removed.
+- Optional: after exporting JSON, you can bake your content into the HTML by replacing the defaultData object or by loading the JSON dynamically.
+
+## License
+You’re free to use and modify this template for personal and commercial portfolios. Attribution appreciated but not required.
